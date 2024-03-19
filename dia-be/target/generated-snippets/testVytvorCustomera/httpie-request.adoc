@@ -1,5 +1,0 @@
-[source,bash]
-----
-$ echo '{"meno":"aaa","kontakt":"nnn","id":null}' | http POST 'http://localhost:8080/api/customers' \
-    'Content-Type:application/json'
-----

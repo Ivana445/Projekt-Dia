@@ -1,8 +1,0 @@
-.+/api/books/{id}+
-|===
-|Parameter|Description
-
-|`+id+`
-|id knihy
-
-|===

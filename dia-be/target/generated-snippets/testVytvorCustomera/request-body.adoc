@@ -1,4 +1,0 @@
-[source,json,options="nowrap"]
-----
-{"meno":"aaa","kontakt":"nnn","id":null}
-----
