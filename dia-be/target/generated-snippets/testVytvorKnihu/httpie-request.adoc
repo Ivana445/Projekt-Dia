@@ -1,5 +1,0 @@
-[source,bash]
-----
-$ echo '{"id":null,"nazov":"nnn","autor":"aaa"}' | http POST 'http://localhost:8080/api/books' \
-    'Content-Type:application/json'
-----

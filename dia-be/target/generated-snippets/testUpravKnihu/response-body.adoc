@@ -1,4 +1,0 @@
-[source,json,options="nowrap"]
-----
-[{"id":1,"nazov":"lala","autor":"abcd"},{"id":2,"nazov":"efgh","autor":"lili"},{"id":1,"nazov":"lala","autor":"abcd"},{"id":2,"nazov":"efgh","autor":"lili"}]
-----
