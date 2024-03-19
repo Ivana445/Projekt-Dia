@@ -1,0 +1,12 @@
+|===
+|Path|Type|Description
+
+|`+meno+`
+|`+String+`
+|Meno customera
+
+|`+kontakt+`
+|`+String+`
+|Kontakt na customera
+
+|===

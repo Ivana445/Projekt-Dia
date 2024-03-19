@@ -1,0 +1,8 @@
+.+/api/customers/{id}+
+|===
+|Parameter|Description
+
+|`+id+`
+|id customera
+
+|===
