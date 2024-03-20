@@ -21,6 +21,7 @@ public class ItemEntity {
     private Long id;
 
     private String name;
+    private String popis;
     @OneToMany(mappedBy="item")
     private Set<ToDoListEntity> toDoListEntities;
 

@@ -9,4 +9,5 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class ItemDTO {
     String name;
+    String popis;
 }
