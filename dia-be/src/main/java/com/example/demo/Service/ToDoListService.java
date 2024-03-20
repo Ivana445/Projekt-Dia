@@ -11,14 +11,21 @@ public class ToDoListService {
     @Autowired
     private ToDoListRepository TodoListRepository;
 
-//    public Long vytvorToDoList(ToDoListDTO toDoListDTO){
-//        ToDoListEntity entity = new ToDoListEntity();
-//        entity.setName(entity.getName());
-//        entity.setItems(entity.getItems());
-//        ToDoListRepository.save(entity);
-//        return entity.getId();
-//    }
-//    public ToDoListDTO ziskajToDoListPodlaId(ToDoListDTO toDoListDTO){
-//
-//    }
+    public Long vytvorToDoList(ToDoListDTO toDoListDTO){
+        //ToDo
+        return null;
+    }
+    public ToDoListDTO ziskajToDoListPodlaId(Long id){
+        //ToDo
+        return null;
+    }
+    public void upravToDoList(Long id, ToDoListDTO toDoListDTO){
+        //ToDo
+    }
+    public void zmazToDoList(Long id){
+        //ToDo
+    }
+    public ItemDTO pridajPolozku(ItemDTO itemDTO){
+        return null;
+    }
 }
