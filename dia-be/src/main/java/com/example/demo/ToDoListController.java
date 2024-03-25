@@ -17,8 +17,7 @@ public class ToDoListController {
 
     @PostMapping("/api/todolist")
     public Long vytvorToDoList(@RequestBody ToDoListDTO toDoListDTO){
-        //ToDo
-        return null;
+        return null; //toDoListService.vytvorToDoList(toDoListDTO);
     }
     @PostMapping("/api/todolist/{id}")
     public Long pridajPolozku(@PathVariable Long id, @RequestBody ItemDTO itemDTO){
@@ -27,16 +26,15 @@ public class ToDoListController {
     }
     @GetMapping("/api/todolist/{id}")
     public ToDoListDTO ziskajToDoListPodlaId(@PathVariable Long id){
-        //ToDo
-        return null;
+        return toDoListService.ziskajToDoListPodlaId(id);
     }
     @PutMapping("/api/todolist/{id}")
     public void upravToDoList(@PathVariable Long id, @RequestBody ToDoListDTO toDoListDTO){
-        //ToDo
+        toDoListService.upravToDoList(id, toDoListDTO);
     }
     @DeleteMapping("/api/todolist/{id}")
     public void vymazToDoList(@PathVariable Long id){
-        //ToDo
+        toDoListService.zmazToDoList(id);
     }
 
 }
