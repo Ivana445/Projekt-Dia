@@ -10,7 +10,9 @@ import lombok.NoArgsConstructor;
 public class ToDoListDTO {
     Long id;
     String name;
-    ItemDTO items;
+    //ItemDTO items;
+
+
     //Day notification
     //Hour notification
     //Repeating notification
