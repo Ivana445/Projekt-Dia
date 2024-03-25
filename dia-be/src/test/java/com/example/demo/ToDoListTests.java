@@ -58,4 +58,31 @@ public class ToDoListTests {
                 .build();
     }
 
+    /*@Test
+    public void testVytvorToDoList() throws Exception {
+        // Mocking the service method to return a specific ID
+        when(toDoListService.vytvorToDoList(any())).thenReturn(1L);
+
+        ToDoListDTO dto = new ToDoListDTO();
+        dto.setName("Moj To-Do List");
+
+        // Sending a POST request
+        mockMvc.perform(
+                        post("/api/todolist")
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content(mapper.writeValueAsString(dto))
+                )
+                .andExpect(status().isOk())
+                .andDo(document("{methodName}",
+                        requestFields(
+                                fieldWithPath("id").ignored(),
+                                fieldWithPath("name").description("nazov to-do listu")
+                        )
+                    )
+                );
+
+        // Verifying that the service method was called
+        verify(toDoListService, times(1)).vytvorToDoList(any());
+    }*/
+
 }

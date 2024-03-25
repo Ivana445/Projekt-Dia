@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Calendar;
 import java.util.Set;
 
 @Entity
@@ -18,15 +19,18 @@ public class ToDoListEntity {
     private Long id;
 
     private String name;
-    private String items;
+    //private String items;
     @ManyToOne
-    private UserEntity user;
+    private UserEntity user; //UserEntity
+
     @ManyToOne
-    private CalendarEntity calendar;
-    @ManyToOne
-    private ItemEntity item;
-//    @OneToMany(mappedBy = "toDoList")
-//    private Set<ItemEntity> itemEntities;
+    private CalendarEntity calendar; //CalendarEntity
+
+    @OneToMany(mappedBy="toDoListEntities")
+    private Set<ItemEntity> item; //ItemEntity
+
+    //@OneToMany(mappedBy = "toDoList")
+    //private Set<ItemEntity> itemEntities;
 
 
 }

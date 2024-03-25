@@ -22,7 +22,7 @@ public class CalendarEntity {
 
     private int days;
 
-    @OneToMany(mappedBy="calendar")
-    private Set<ToDoListEntity> toDoListEntities;
+    //@OneToMany(mappedBy="calendar")
+    //private Set<ToDoListEntity> toDoListEntities;
 
 }
