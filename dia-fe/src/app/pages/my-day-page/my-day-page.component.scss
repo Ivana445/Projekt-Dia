@@ -1,0 +1,31 @@
+.main-content{
+  background: #E2DEE5;
+  border: #E2DEE5 10px;
+  border-radius: 8% / 10%;
+  width: 1160px;
+  height: 95%;
+  margin: 0 auto;
+}
+.content{
+  width: 1160px;
+  height: 700px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  align-content: flex-start;
+}
+.content p{
+  width: 1030px;
+  font-size: 56px;
+  color: #C184FE;
+}
+.content-bg{
+  background: #FFF;
+  border: #FFF 10px;
+  border-radius: 5% / 10%;
+  width: 1050px;
+  height: 560px;
+  margin: 0 auto;
+}
+

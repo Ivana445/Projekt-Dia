@@ -1,0 +1,21 @@
+<div class="page">
+  <div class="navbar">
+    <mat-sidenav-container class="example-container">
+      <mat-sidenav mode="side" opened>
+        <div><a routerLink="pages/home-page">Home</a></div>
+        <div><a routerLink="pages/my-day-page">My day</a></div>
+        <div><a routerLink="pages/calendar-page">Calendar</a></div>
+        <p>---------------</p>
+        <!--*ngIf="activeTasks$ | async as tasks"-->
+        <!--<div *ngFor="let task of tasks"></div>-->
+        <p>---------------</p>
+        <div><a routerLink="pages/new-list-page">New list</a></div>
+        <div><a routerLink="pages/profile-page">Profile</a></div>
+        <div><a routerLink="">Logout</a></div>
+      </mat-sidenav>
+      <mat-sidenav-content>
+        <router-outlet></router-outlet>
+      </mat-sidenav-content>
+    </mat-sidenav-container>
+  </div>
+</div>

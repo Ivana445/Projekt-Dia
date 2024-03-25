@@ -1,0 +1,79 @@
+.main-content{
+  background: #E2DEE5;
+  border: #E2DEE5 10px;
+  border-radius: 8% / 10%;
+  width: 1160px;
+  height: 95%;
+  margin: 0 auto;
+}
+.name{
+  width: 1160px;
+  height: 175px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.name-bg{
+  background: #FFF;
+  border: #FFF 10px;
+  border-radius: 5% / 35%;
+  width: 1050px;
+  height: 130px;
+  margin: 0 auto;
+}
+.tasks{
+  width: 600px;
+  height: 600px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  align-content: flex-start;
+  float: left;
+}
+.tasks p{
+  width: 500px;
+  font-size: 24px;
+}
+.tasks-bg{
+  background: #FFF;
+  border: #FFF 10px;
+  border-radius: 10%;
+  width: 500px;
+  height: 500px;
+  margin: 0 auto;
+}
+.progess{
+  width: 560px;
+  height: 290px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  align-content: flex-start;
+}
+.progess p {
+  width: 380px;
+  font-size: 24px;
+}
+.progress-bg{
+  background: #FFF;
+  border: #FFF 10px;
+  border-radius: 10% / 20%;
+  width: 380px;
+  height: 150px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.kruh{
+  background: transparent;
+  border: #C184FE 6px;
+  border-radius: 50%;
+  width: 100px;
+  height: 100px;
+  float: left;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
