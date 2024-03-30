@@ -5,6 +5,7 @@ import com.example.demo.Perzistent.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.swing.text.html.Option;
 import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -14,6 +15,7 @@ public class UserService{
 
     @Autowired
     private UserRepository userRepository;
+
     public Long userRegistration(UserDTO userDTO) {
         if (isUsernameAvailable(userDTO.getUsername()) && isEmailAvailable(userDTO.getEmail())) {
             UserEntity userEntity = new UserEntity();
@@ -75,5 +77,32 @@ public class UserService{
         dto.setEmail(entity.getEmail());
         dto.setPassword(entity.getPassword());
         return dto;
+    }
+
+    public Long PostLogin(UserDTO userDTO) {
+        // Získanie používateľa z databázy podľa používateľského mena
+        Optional<UserEntity> userOptional = userRepository.findByUsername(userDTO.getUsername());
+        if (userOptional.isPresent()) {
+            UserEntity user = userOptional.get();
+            String storedPassword = user.getPassword();
+            // Porovnanie hesiel
+            if (storedPassword != null && storedPassword.equals(userDTO.getPassword())) {
+                return user.getId();
+            }
+        }
+        return null;
+    }
+    public UserDTO GetLogin(Long id){
+        Optional<UserEntity> useropt = userRepository.findById(id);
+        if (useropt.isPresent()){
+            UserEntity userEntity = useropt.get();
+            UserDTO userdto = new UserDTO();
+            userdto.setId(userEntity.getId());
+            userdto.setUsername(userEntity.getUsername());
+            userdto.setPassword(userEntity.getPassword());
+            userdto.setEmail(userEntity.getEmail());
+            return userdto;
+        }
+        return null;
     }
 }
