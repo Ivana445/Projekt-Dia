@@ -21,4 +21,13 @@ public class UserController {
     public UserDTO GetRegistration(@PathVariable Long id){
         return userService.GetRegistration(id);
     }
+
+    @PostMapping("/api/login")
+    public Long PostLogin(@RequestBody UserDTO userDTO){
+        return userService.PostLogin(userDTO);
+    }
+    @GetMapping("api/login/{id}")
+    public UserDTO GetLogin(@PathVariable Long id){
+        return userService.GetLogin(id);
+    }
 }
