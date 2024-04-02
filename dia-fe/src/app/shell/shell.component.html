@@ -1,0 +1,12 @@
+<mat-sidenav-container style="width: 100%; height: 100vh; display: block">
+    <mat-sidenav mode="side" opened>
+        <div class="navigation">
+            <ng-content select="[nav]"></ng-content>
+        </div>
+    </mat-sidenav>
+    <mat-sidenav-content>
+        <div class="main-container">
+            <ng-content select="[body]"></ng-content>
+        </div>
+    </mat-sidenav-content>
+</mat-sidenav-container>

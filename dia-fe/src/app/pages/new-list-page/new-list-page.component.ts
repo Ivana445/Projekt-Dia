@@ -9,11 +9,11 @@ import {ItemModel} from "../../../models/item.module";
 export class NewListPageComponent {
 
   items: ItemModel[] = [{
-    itemname:'My TO DO list'
+    itemname:'Item of TO DO list'
   }, {
-    itemname:'My TO DO list 2'
+    itemname:'Item of TO DO list 2'
   }, {
-    itemname:'My TO DO list 3'
+    itemname:'Item of TO DO list 3'
   }]
 
 }
