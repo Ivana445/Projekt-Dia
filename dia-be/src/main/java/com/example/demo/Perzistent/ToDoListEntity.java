@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.Calendar;
+import java.util.Date;
 import java.util.Set;
 
 @Entity
@@ -19,7 +20,11 @@ public class ToDoListEntity {
     private Long id;
 
     private String name;
+
     //private String items;
+
+    private Date deadline;
+
     @ManyToOne
     private UserEntity user; //UserEntity
 
