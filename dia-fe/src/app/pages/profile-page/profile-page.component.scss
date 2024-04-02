@@ -7,18 +7,29 @@
   margin: 0 auto;
 }
 .userdata{
-  width: 600px;
-  height: 600px;
+  max-width: 40rem;
+  width: 100%;
+  height: 32rem;
   display: flex;
   flex-wrap: wrap;
-  align-items: center;
-  justify-content: center;
   align-content: flex-start;
   float: left;
+  margin-right: 2%;
+}
+.userdata div{
+  background: #FFF;
+  border-radius: 2% / 20%;
+  width: 100%;
+  height: 4rem;
+  margin: 0 auto;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
 }
 .color-theme{
-  width: 560px;
-  height: 290px;
+  min-width: min-content;
+  height: 15rem;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -33,10 +44,12 @@
   background: #FFF;
   border: #FFF 10px;
   border-radius: 10% / 20%;
-  width: 380px;
-  height: 150px;
+  width: 100%;
+  height: 100%;
   display: flex;
-  justify-content: center;
+  flex-wrap: wrap;
+  flex-direction: column;
+  justify-content: space-around;
   align-items: center;
 }
 

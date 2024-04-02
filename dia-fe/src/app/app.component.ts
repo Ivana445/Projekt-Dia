@@ -42,6 +42,11 @@ export class AppComponent {
     }]
 
 
+    show(): boolean{
+
+        return true
+    }
+
     //private readonly service = inject(NazovServisu)
 
     //activeTasks$ = this.service.nazovmetody

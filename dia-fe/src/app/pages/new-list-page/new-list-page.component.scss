@@ -22,8 +22,9 @@ img{
 }
 .items{
   width: 60%;
-  height: 36rem;
-  display: flex;flex-direction: column;
+  height: 32rem;
+  display: flex;
+  flex-direction: column;
   justify-content: space-between;
 }
 .items input{
@@ -31,13 +32,21 @@ img{
   border-radius: 4%/ 30%;
   background: #FFFFFF80;
   padding: 1rem;
+  font-size: 20px;
 }
 .notification{
   width: 35%;
-  height: 36rem;
+  height: 32rem;
   background: white;
   border-radius: 16%/ 10%;
   padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+}
+.notification p{
+  text-align: center;
 }
 .sharing{
   display: flex;

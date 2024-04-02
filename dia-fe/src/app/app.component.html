@@ -1,5 +1,5 @@
 <app-shell>
-    <nav nav>
+    <nav nav *ngIf="show">
             <app-nav-item *ngFor="let navigation of nav" [routerLink]="navigation.routerLink" [nazov]="navigation.nazov"></app-nav-item>
             <mat-divider></mat-divider>
             <!--*ngIf="activeTasks$ | async as tasks"-->

@@ -19,7 +19,12 @@ import {MatCard} from "@angular/material/card";
 import { CreateNewButonComponent } from './create-new-buton/create-new-buton.component';
 import { LoginPageComponent } from './login-page/login-page.component';
 import {MatFormField} from "@angular/material/form-field";
-import {MatDatepicker, MatDatepickerInput, MatDatepickerToggle} from "@angular/material/datepicker";
+import {
+    MatDatepicker,
+    MatDatepickerInput,
+    MatDatepickerModule,
+    MatDatepickerToggle
+} from "@angular/material/datepicker";
 import {MatInput} from "@angular/material/input";
 import { ShellComponent } from './shell/shell.component';
 import { TestComponent } from './test/test.component';
@@ -33,6 +38,9 @@ import { ProgressCircleComponent } from './progress-circle/progress-circle.compo
 import {MatChip, MatChipInput, MatChipListbox} from "@angular/material/chips";
 import {MatChipInputHarness} from "@angular/material/chips/testing";
 import { ItemComponent } from './item/item.component';
+import {FullCalendarModule} from "@fullcalendar/angular";
+import {CalendarModule} from "primeng/calendar";
+import {FormsModule} from "@angular/forms";
 
 @NgModule({
     declarations: [
@@ -54,35 +62,39 @@ import { ItemComponent } from './item/item.component';
         ProgressCircleComponent,
         ItemComponent
     ],
-    imports: [
-        BrowserModule,
-        AppRoutingModule,
-        MatChip,
-        MatChipInput,
-        MatChipListbox,
-        MatSidenav,
-        MatSidenavContainer,
-        MatSidenavContent,
-        NgFor,
-        MatMenu,
-        MatMenuTrigger,
-        MatIcon,
-        MatMenuItem,
-        MatIconButton,
-        MatCard,
-        MatFormField,
-        MatDatepickerToggle,
-        MatDatepicker,
-        MatInput,
-        MatDatepickerInput,
-        NgOptimizedImage,
-        HttpClientModule,
-        MatList,
-        MatListItem,
-        MatDivider,
-        MatChip,
-        MatChipInput
-    ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    FullCalendarModule,
+    MatChip,
+    MatChipInput,
+    MatChipListbox,
+    MatDatepickerModule,
+    MatSidenav,
+    MatSidenavContainer,
+    MatSidenavContent,
+    NgFor,
+    MatMenu,
+    MatMenuTrigger,
+    MatIcon,
+    MatMenuItem,
+    MatIconButton,
+    MatCard,
+    MatFormField,
+    MatDatepickerToggle,
+    MatDatepicker,
+    MatInput,
+    MatDatepickerInput,
+    NgOptimizedImage,
+    HttpClientModule,
+    MatList,
+    MatListItem,
+    MatDivider,
+    MatChip,
+    MatChipInput,
+    CalendarModule,
+    FormsModule
+  ],
   providers: [
     provideAnimationsAsync()
   ],
