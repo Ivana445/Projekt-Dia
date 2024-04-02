@@ -1,14 +1,25 @@
-<div class="main-content">
-  <div class="new-list">
-    <p>New TO-DO list</p>
-    <img src="">
-    <div class="content">
+<div class="title">
+  <p>New TO-DO list</p>
+  <img src="../../../assets/images/bigbin.png" alt="delete" height="75" width="68">
+</div>
+  <div class="content">
       <div class="items">
+          <div>
+            <app-item *ngFor="let item of items" [itemname]="item.itemname">
+                <!--{{item.itemname}}-->
+            </app-item>
+          </div>
+          <input type="text">
       </div>
       <div class="notification">
+          <p> Add notification</p>
+          <mat-divider></mat-divider>
+          <mat-divider></mat-divider>
+          <div class="sharing">
+              <img src="assets/images/share.png" width="24" height="48" alt="share">
+              <p>Share list</p>
+          </div>
       </div>
-    </div>
   </div>
 
-</div>
 

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import {UserModel} from "../../../models/user.model";
 
 @Component({
   selector: 'app-profile-page',
@@ -6,5 +7,6 @@ import { Component } from '@angular/core';
   styleUrl: './profile-page.component.scss'
 })
 export class ProfilePageComponent {
+
 
 }

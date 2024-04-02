@@ -5,7 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import {MatSidenav, MatSidenavContainer, MatSidenavContent} from "@angular/material/sidenav";
-import {NgFor} from "@angular/common";
+import {NgFor, NgOptimizedImage} from "@angular/common";
 import { HomePageComponent } from './pages/home-page/home-page.component';
 import {MatMenu, MatMenuItem, MatMenuTrigger} from "@angular/material/menu";
 import {MatIcon} from "@angular/material/icon";
@@ -18,33 +18,71 @@ import { CalendarComponent } from './calendar/calendar.component';
 import {MatCard} from "@angular/material/card";
 import { CreateNewButonComponent } from './create-new-buton/create-new-buton.component';
 import { LoginPageComponent } from './login-page/login-page.component';
+import {MatFormField} from "@angular/material/form-field";
+import {MatDatepicker, MatDatepickerInput, MatDatepickerToggle} from "@angular/material/datepicker";
+import {MatInput} from "@angular/material/input";
+import { ShellComponent } from './shell/shell.component';
+import { TestComponent } from './test/test.component';
+import { NavItemComponent } from './shell/nav-item/nav-item.component';
+import {HttpClientModule} from "@angular/common/http";
+import {MatList, MatListItem} from "@angular/material/list";
+import {MatDivider} from "@angular/material/divider";
+import { NameTimeComponent } from './name-time/name-time.component';
+import { ShowListComponent } from './show-list/show-list.component';
+import { ProgressCircleComponent } from './progress-circle/progress-circle.component';
+import {MatChip, MatChipInput, MatChipListbox} from "@angular/material/chips";
+import {MatChipInputHarness} from "@angular/material/chips/testing";
+import { ItemComponent } from './item/item.component';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    HomePageComponent,
-    MyDayPageComponent,
-    CalendarPageComponent,
-    NewListPageComponent,
-    ProfilePageComponent,
-    CalendarComponent,
-    CreateNewButonComponent,
-    LoginPageComponent
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    MatSidenav,
-    MatSidenavContainer,
-    MatSidenavContent,
-    NgFor,
-    MatMenu,
-    MatMenuTrigger,
-    MatIcon,
-    MatMenuItem,
-    MatIconButton,
-    MatCard,
-  ],
+    declarations: [
+        AppComponent,
+        HomePageComponent,
+        MyDayPageComponent,
+        CalendarPageComponent,
+        NewListPageComponent,
+        ProfilePageComponent,
+        CalendarComponent,
+        CreateNewButonComponent,
+        LoginPageComponent,
+        ShellComponent,
+        TestComponent,
+        NavItemComponent,
+        NameTimeComponent,
+        ShowListComponent,
+        ShowListComponent,
+        ProgressCircleComponent,
+        ItemComponent
+    ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        MatChip,
+        MatChipInput,
+        MatChipListbox,
+        MatSidenav,
+        MatSidenavContainer,
+        MatSidenavContent,
+        NgFor,
+        MatMenu,
+        MatMenuTrigger,
+        MatIcon,
+        MatMenuItem,
+        MatIconButton,
+        MatCard,
+        MatFormField,
+        MatDatepickerToggle,
+        MatDatepicker,
+        MatInput,
+        MatDatepickerInput,
+        NgOptimizedImage,
+        HttpClientModule,
+        MatList,
+        MatListItem,
+        MatDivider,
+        MatChip,
+        MatChipInput
+    ],
   providers: [
     provideAnimationsAsync()
   ],

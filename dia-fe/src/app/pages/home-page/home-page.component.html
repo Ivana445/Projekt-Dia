@@ -1,15 +1,10 @@
-<div class="main-content">
-  <div class="name">
-    <div class="name-bg">
-    <!--{{username}}-->
-    <!--{{time}}-->
-    </div>
-   </div>
+<app-name-time></app-name-time>
    <div class="tasks">
      <p>Today's tasks</p>
      <div class="tasks-bg">
        <app-create-new-buton></app-create-new-buton>
-       <!--create new button component-->
+         <app-show-list *ngFor=" let list of lists" [TODOlistname]="list.TODOlistname"></app-show-list>
+
        <!--ngFor s to-do listami-->
      </div>
    </div>
@@ -17,19 +12,12 @@
      <p>Your progress</p>
      <div class="progress-bg">
        <!--% uspesnost-->
-       <div class="kruh">
-         <span class="napis_v_kruhu">100%</span>
-       </div>
-       <div class="kruh">
-         <span class="napis_v_kruhu">100%</span>
-       </div>
-       <div class="kruh">
-         <span class="napis_v_kruhu">100%</span>
-       </div>
+         <app-progress-circle [percentage]="percentage"></app-progress-circle>
+         <app-progress-circle [percentage]="percentage"></app-progress-circle>
+         <app-progress-circle [percentage]="percentage"></app-progress-circle>
      </div>
    </div>
  <!-- calendar bude komponent, je na to kniznica angular/calendar -->
   <div class="calendar"></div>
 
-</div>
 

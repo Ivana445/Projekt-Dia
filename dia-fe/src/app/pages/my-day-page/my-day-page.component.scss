@@ -1,31 +1,14 @@
-.main-content{
-  background: #E2DEE5;
-  border: #E2DEE5 10px;
-  border-radius: 8% / 10%;
-  width: 1160px;
-  height: 95%;
-  margin: 0 auto;
-}
-.content{
-  width: 1160px;
-  height: 700px;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: center;
-  align-content: flex-start;
-}
-.content p{
-  width: 1030px;
-  font-size: 56px;
+p{
+  width: 100%;
+  font-size: 3.5rem;
   color: #C184FE;
 }
 .content-bg{
   background: #FFF;
   border: #FFF 10px;
   border-radius: 5% / 10%;
-  width: 1050px;
-  height: 560px;
+  width: 100%;
+  height: 75%;
   margin: 0 auto;
 }
 
