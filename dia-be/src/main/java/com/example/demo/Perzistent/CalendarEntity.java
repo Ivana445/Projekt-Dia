@@ -20,7 +20,7 @@ public class CalendarEntity {
     @GeneratedValue
     private Long id;
 
-    private int days;
+    //private int days;
 
     //@OneToMany(mappedBy="calendar")
     //private Set<ToDoListEntity> toDoListEntities;

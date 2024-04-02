@@ -11,17 +11,18 @@ public class ToDoListService {
     @Autowired
     private ToDoListRepository todoListRepository;
 
-    /*public Long vytvorToDoList(ToDoListDTO toDoListDTO) {
+    /*public Long postToDoList(ToDoListDTO toDoListDTO) {
         ToDoListEntity entity = new ToDoListEntity();
         entity.setName(toDoListDTO.getName());
         entity.setUser(toDoListDTO.getUser());
+        entity.setDeadline(toDoListDTO.getDeadline());
         entity.setCalendar(toDoListDTO.getCalendar());
         entity.setItems("items");
 
         ToDoListEntity savedEntity = todoListRepository.save(entity);
         return savedEntity.getId();
     }*/
-    public ToDoListDTO ziskajToDoListPodlaId(Long id){
+    public ToDoListDTO getToDoListPodlaId(Long id){
         ToDoListEntity entity = todoListRepository.findById(id).orElse(null);
         if (entity != null) {
             ToDoListDTO dto = new ToDoListDTO();
@@ -31,17 +32,18 @@ public class ToDoListService {
         }
         return null;
     }
-    public void upravToDoList(Long id, ToDoListDTO toDoListDTO){
+
+
+    public void putToDoList(Long id, ToDoListDTO toDoListDTO){
         ToDoListEntity entity = todoListRepository.findById(id).orElse(null);
         if (entity != null) {
             entity.setName(toDoListDTO.getName());
             todoListRepository.save(entity);
         }
     }
-    public void zmazToDoList(Long id){
+
+    public void deleteToDoList(Long id){
         todoListRepository.deleteById(id);
     }
-    public ItemDTO pridajPolozku(ItemDTO itemDTO){
-        return null;
-    }
+
 }

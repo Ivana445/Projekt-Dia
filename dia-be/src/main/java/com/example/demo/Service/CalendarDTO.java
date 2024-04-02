@@ -9,8 +9,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor //automaticky doplni parametricky konstruktor
 public class CalendarDTO {
     Long id;
-    ToDoListDTO toDoListDTO;
-    int Days;
+    //int Days;
 
 
 }
