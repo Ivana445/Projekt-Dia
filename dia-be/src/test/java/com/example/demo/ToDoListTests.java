@@ -59,9 +59,9 @@ public class ToDoListTests {
     }
 
     /*@Test
-    public void testVytvorToDoList() throws Exception {
+    public void testPostToDoList() throws Exception {
         // Mocking the service method to return a specific ID
-        when(toDoListService.vytvorToDoList(any())).thenReturn(1L);
+        when(toDoListService.postToDoList(any())).thenReturn(1L);
 
         ToDoListDTO dto = new ToDoListDTO();
         dto.setName("Moj To-Do List");
@@ -82,7 +82,7 @@ public class ToDoListTests {
                 );
 
         // Verifying that the service method was called
-        verify(toDoListService, times(1)).vytvorToDoList(any());
+        verify(toDoListService, times(1)).postToDoList(any());
     }*/
 
 }
