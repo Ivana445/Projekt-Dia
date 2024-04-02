@@ -6,22 +6,7 @@
   height: 95%;
   margin: 0 auto;
 }
-.name{
-  width: 1160px;
-  height: 175px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.name-bg{
-  background: #FFF;
-  border: #FFF 10px;
-  border-radius: 5% / 35%;
-  width: 1050px;
-  height: 130px;
-  margin: 0 auto;
-}
-.data{
+.userdata{
   width: 600px;
   height: 600px;
   display: flex;
@@ -54,14 +39,4 @@
   justify-content: center;
   align-items: center;
 }
-.kruh{
-  background: transparent;
-  border: #C184FE 6px;
-  border-radius: 50%;
-  width: 100px;
-  height: 100px;
-  float: left;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
+
