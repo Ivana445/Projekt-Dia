@@ -16,7 +16,6 @@ public class ItemEntity {
     @Id
     @GeneratedValue
     private Long id;
-
     private String name;
     private String popis;
     @ManyToOne
