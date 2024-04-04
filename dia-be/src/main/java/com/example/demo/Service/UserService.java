@@ -105,4 +105,31 @@ public class UserService{
         }
         return null;
     }
+    public void ChangePassword(Long id, UserDTO userDTO){
+        Optional<UserEntity> userOptional = userRepository.findById(id);
+        if (userOptional.isPresent()) {
+            UserEntity userEntity = userOptional.get();
+            if (userDTO.getPassword() != null){
+            userEntity.setPassword(userDTO.getPassword());
+            if (isValidPassword(userEntity.getPassword())) {
+                userRepository.save(userEntity);
+            }
+            } else {
+                throw new IllegalArgumentException("Invalid password format");
+            }
+        } else {
+            throw new IllegalArgumentException("User with id " + id + " does not exist");
+        }
+    }
+    public String GetPassword(Long id) {
+        Optional<UserEntity> userOptional = userRepository.findById(id);
+
+        if (userOptional.isPresent()) {
+            UserEntity userEntity = userOptional.get();
+            return userEntity.getPassword();
+        } else {
+            throw new IllegalArgumentException("User with id " + id + " does not exist");
+        }
+    }
+
 }

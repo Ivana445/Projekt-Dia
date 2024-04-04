@@ -30,4 +30,13 @@ public class UserController {
     public UserDTO GetLogin(@PathVariable Long id){
         return userService.GetLogin(id);
     }
+    @PutMapping("/api/change/{id}")
+    public void ChangePassword(@PathVariable Long id, @RequestBody UserDTO userDTO){
+        userService.ChangePassword(id, userDTO);
+    }
+    @GetMapping("api/change/{id}")
+    public String GetPassword(@PathVariable Long id){
+        return userService.GetPassword(id);
+    }
+
 }
