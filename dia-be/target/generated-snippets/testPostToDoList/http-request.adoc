@@ -1,0 +1,9 @@
+[source,http,options="nowrap"]
+----
+POST /api/todolist HTTP/1.1
+Content-Type: application/json
+Content-Length: 78
+Host: localhost:8080
+
+{"id":null,"name":"Moj To-Do List","deadline":"2024-04-07T18:13:55.461+00:00"}
+----
