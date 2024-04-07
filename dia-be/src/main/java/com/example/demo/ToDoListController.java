@@ -16,7 +16,7 @@ public class ToDoListController {
     ToDoListService toDoListService;
 
     @PostMapping("/api/todolist")
-    public Long postToDoList(@RequestBody ToDoListDTO toDoListDTO, Long userId) {
+    public Long postToDoList(@RequestBody ToDoListDTO toDoListDTO, @RequestHeader("userId") Long userId) {
         return toDoListService.postToDoList(userId, toDoListDTO);
     }
 
