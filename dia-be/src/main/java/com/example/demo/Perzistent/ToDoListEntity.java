@@ -28,8 +28,8 @@ public class ToDoListEntity {
     @ManyToOne
     private UserEntity user; //UserEntity
 
-    @ManyToOne
-    private CalendarEntity calendar; //CalendarEntity
+    //@ManyToOne
+   // private CalendarEntity calendar; //CalendarEntity
 
     @OneToMany(mappedBy="toDoListEntities")
     private Set<ItemEntity> item; //ItemEntity

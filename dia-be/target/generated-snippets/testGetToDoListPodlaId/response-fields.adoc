@@ -1,0 +1,16 @@
+|===
+|Path|Type|Description
+
+|`+id+`
+|`+Number+`
+|to-do list id
+
+|`+name+`
+|`+String+`
+|nazov to do listu
+
+|`+deadline+`
+|`+String+`
+|datum dokoncenia
+
+|===
