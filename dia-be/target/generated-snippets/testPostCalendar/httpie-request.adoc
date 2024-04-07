@@ -1,0 +1,5 @@
+[source,bash]
+----
+$ echo '{"id":null}' | http POST 'http://localhost:8080/api/calendar' \
+    'Content-Type:application/json'
+----
