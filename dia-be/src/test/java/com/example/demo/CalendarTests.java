@@ -55,7 +55,7 @@ public class CalendarTests {
     @Test
     public void testPostCalendar() throws Exception {
         when(calendarService.postCalendar(any())).thenAnswer(invocation -> {
-            Long id = 1L; // This is a generated ID, not the Id from DTO
+            Long id = 1L;
             return id;
         });
 

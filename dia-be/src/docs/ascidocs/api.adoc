@@ -1,2 +1,6 @@
 *HTTP  REQUEST*
-include::{snippets}/testVytvorKnihu/http-request.adoc
+include::{snippets}/testUserRegistration_Success/http-request.adoc
+include::{snippets}/testUserRegistration_Failure/http-request.adoc
+include::{snippets}/testLogin_Success/http-request.adoc
+include::{snippets}/testLogin_Failure/http-request.adoc
+
