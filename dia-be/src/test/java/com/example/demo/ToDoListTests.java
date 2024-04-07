@@ -48,9 +48,6 @@ public class ToDoListTests {
     @MockBean
     private ToDoListService toDoListService;
 
-    @MockBean
-    private UserService userService;
-
     @BeforeEach
     public void setUp(WebApplicationContext webApplicationContext,
                       RestDocumentationContextProvider restDocumentation) {
