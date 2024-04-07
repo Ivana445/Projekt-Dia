@@ -6,8 +6,6 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -55,7 +53,7 @@ public class CalendarTests {
     @Test
     public void testPostCalendar() throws Exception {
         when(calendarService.postCalendar(any())).thenAnswer(invocation -> {
-            Long id = 1L; // This is a generated ID, not the Id from DTO
+            Long id = 1L;
             return id;
         });
 
@@ -78,7 +76,7 @@ public class CalendarTests {
     }
 
     @Test
-    public void testGetCalendar() throws Exception{
+    public void testGetCalendarPodlaId() throws Exception{
         when(calendarService.getCalendarPodlaId(any())).thenReturn(
                 new CalendarDTO(1L)
         );
