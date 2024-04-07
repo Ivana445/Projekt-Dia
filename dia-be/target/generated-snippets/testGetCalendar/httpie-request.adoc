@@ -1,0 +1,5 @@
+[source,bash]
+----
+$ http GET 'http://localhost:8080/api/calendar/1' \
+    'Content-Type:application/json'
+----
