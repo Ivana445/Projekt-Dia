@@ -19,7 +19,6 @@ public class ToDoListController {
     public Long postToDoList(@RequestBody ToDoListDTO toDoListDTO){
         return null; //toDoListService.postToDoList(toDoListDTO);
     }
-
     @GetMapping("/api/todolist/{id}")
     public ToDoListDTO getToDoListPodlaId(@PathVariable Long id){
         return toDoListService.getToDoListPodlaId(id);
