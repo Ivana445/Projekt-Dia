@@ -1,0 +1,28 @@
+<!--@if (user) {
+  <div>User is logged in</div>
+} @else {
+  <div>
+    User is not logged in
+  </div>
+}-->
+<app-name-time></app-name-time>
+<div class="tasks">
+    <p>Today's tasks</p>
+    <div class="tasks-bg bg-white">
+        <app-create-new-button></app-create-new-button>
+        <app-show-list *ngFor=" let list of lists" [TODOlistname]="list.TODOlistname"></app-show-list>
+    </div>
+</div>
+<div class="progess">
+    <p>Your progress</p>
+    <div class="progress-bg bg-white">
+        <!--% uspesnost-->
+        <app-progress-circle [percentage]="percentage"></app-progress-circle>
+        <app-progress-circle [percentage]="percentage"></app-progress-circle>
+        <app-progress-circle [percentage]="percentage"></app-progress-circle>
+    </div>
+</div>
+<div class="calendar">
+    <p>Calendar</p>
+    <app-calendar></app-calendar>
+</div>

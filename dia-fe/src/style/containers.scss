@@ -1,0 +1,7 @@
+@import "./variables";
+@import "./spacings";
+
+.main-container-spacing{
+  $spacing: map-get($spacings, 'md');
+  padding: #{$spacing*0.65}rem #{$spacing}rem
+}

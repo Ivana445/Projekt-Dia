@@ -1,0 +1,17 @@
+:host {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+}
+
+.closed {
+  width: 0 !important;
+}
+
+.navbar{
+  border: none;
+  flex-shrink: 0;
+  overflow: hidden;
+  transition: width 0.2s;
+  padding: 0.5rem;
+}

@@ -1,59 +1,16 @@
-import {Component, inject} from '@angular/core';
-import {Router} from "@angular/router";
-import {NavigationModel} from "../models/navigation.model";
-import {UserService} from "../services/user.service";
+import {Component} from '@angular/core';
+import {RouterOutlet} from '@angular/router';
+import {AppShellComponent} from "./app-shell/app-shell.component";
+import {NavigationComponent} from "./app-shell/navigation/navigation.component";
+import {HttpClientModule, provideHttpClient} from "@angular/common/http";
 
 @Component({
     selector: 'app-root',
+    standalone: true,
+    imports: [RouterOutlet, AppShellComponent, NavigationComponent, HttpClientModule],
     templateUrl: './app.component.html',
     styleUrl: './app.component.scss'
 })
 export class AppComponent {
-    userService = inject(UserService);
-
-    title = 'Project';
-    nav: NavigationModel[] = [{
-        routerLink: 'pages/home-page',
-        nazov: 'Home',
-        icon: 'assets/images/navIcons/home.png'
-    }, {
-        routerLink: 'pages/my-day-page',
-        nazov: 'My day',
-        icon: 'assets/images/navIcons/todolist.png'
-    }, {
-        routerLink: 'pages/calendar-page',
-        nazov: 'Calendar',
-        icon: 'assets/images/navIcons/calendar.png'
-    }]
-
-    usernav: NavigationModel[] = [{
-        routerLink: 'pages/new-list-page',
-        nazov: 'New-list',
-        icon: 'assets/images/navIcons/new-list.png'
-    }, {
-        routerLink: 'pages/profile-page',
-        nazov: 'Profile',
-        icon: 'assets/images/navIcons/profile.png'
-    }]
-    tasks: NavigationModel[] = [{
-        routerLink: 'pages/new-list-page',
-        nazov: 'My TO DO list',
-        icon: 'assets/images/navIcons/new-list.png'
-    }]
-
-
-    show(): boolean{
-
-        return true
-    }
-
-    //private readonly service = inject(NazovServisu)
-
-    //activeTasks$ = this.service.nazovmetody
-    logout$ = this.userService.logOut('sedrfghj')
-
-    logOut(){
-        this.userService.logOut('sedrfghj').subscribe()
-        console.log("odhlaseny")
-    }
+    title = 'dia-fe';
 }

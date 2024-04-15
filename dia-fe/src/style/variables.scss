@@ -1,0 +1,24 @@
+
+$theme-colors: (
+        primary: #E2DEE5,
+        secondary: #C184FE,
+        secondary-light: #C184FE80,
+        col-white: #FFF,
+        col-black: #0c0c0c
+);
+
+@mixin generate-color-classes {
+  @each $color-name, $color-value in $theme-colors {
+    .bg-#{$color-name} {
+      background-color: $color-value;
+    }
+    .font-#{$color-name} {
+      color: $color-value;
+    }
+    .border-#{$color-name} {
+      border-color: $color-value;
+    }
+  }
+}
+
+@include generate-color-classes

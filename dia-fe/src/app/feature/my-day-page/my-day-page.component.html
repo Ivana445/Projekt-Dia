@@ -1,0 +1,7 @@
+<p class="font-secondary">My day</p>
+<div class="content-bg bg-white">
+    <app-create-new-button></app-create-new-button>
+    <app-show-list *ngFor=" let list of lists" [TODOlistname]="list.TODOlistname"></app-show-list>
+
+</div>
+
