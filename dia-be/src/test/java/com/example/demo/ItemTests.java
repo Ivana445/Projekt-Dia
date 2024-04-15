@@ -58,7 +58,34 @@ public class ItemTests {
                 .build();
     }
 
-    //todo testPostItem
+    @Test
+    public void testPostItem() throws Exception {
+        when(itemService.postItem(any(),any())).thenAnswer(invocation -> {
+            Long id = 1L;
+            return id;
+        });
+
+        ItemDTO dto = new ItemDTO();
+        dto.setName("Moj task");
+        dto.setPopis("Moj popis");
+
+        mockMvc.perform(
+                        post("/api/todolist/1/items")
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .content(mapper.writeValueAsString(dto))
+                )
+                .andExpect(status().isOk())
+                .andDo(document("{methodName}",
+                                requestFields(
+                                        fieldWithPath("id").ignored(),
+                                        fieldWithPath("name").description("nazov tasku"),
+                                        fieldWithPath("popis").description("popis tasku")
+                                )
+                        )
+                );
+
+        verify(itemService, times(1)).postItem(any(), any());
+    }
 
     @Test
     public void testGetItemById() throws Exception{
