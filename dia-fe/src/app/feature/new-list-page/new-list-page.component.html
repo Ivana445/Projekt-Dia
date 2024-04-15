@@ -1,0 +1,27 @@
+<div class="title">
+    <input type="text" value="New TO-DO list">
+    <!--<p class="font-white">New TO-DO list</p>-->
+    <span class="pi pi-trash"></span>
+</div>
+<div class="content">
+    <div class="items">
+        <div>
+            <app-item *ngFor="let item of items">
+                <!--{{item.itemname}}-->
+            </app-item>
+        </div>
+        <input type="text" ><!-- (keyup.enter)="addItem($event.target.value)" -->
+    </div>
+    <div class="notification bg-secondary-light">
+        <div class="setup">
+            <p>Add notification</p>
+            <app-calendar></app-calendar>
+        </div>
+        <div class="sharing">
+            <span class="pi pi-user-plus"></span>
+            <p>Share list</p>
+        </div>
+    </div>
+</div>
+
+

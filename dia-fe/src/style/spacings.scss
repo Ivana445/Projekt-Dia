@@ -1,0 +1,18 @@
+$spacings: (
+  sm: 1,
+  md: 2,
+  lg: 3
+);
+
+@mixin generate-spacings {
+  @each $spacing-name, $spacing-value in $spacings {
+    .pd-#{$spacing-name} {
+      padding: (2*$spacing-value)rem ;
+    }
+    .mg-#{$spacing-name} {
+      margin: (2*$spacing-value)rem ;
+    }
+  }
+}
+
+@include generate-spacings

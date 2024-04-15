@@ -8,7 +8,7 @@ describe('NameTimeComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [NameTimeComponent]
+      imports: [NameTimeComponent]
     })
     .compileComponents();
     

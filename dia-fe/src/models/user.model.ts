@@ -1,5 +1,6 @@
 export interface UserModel{
-    name: "Blueberry";
-    password: "29jnsdHY";
-    email: "blueberry@mail.com";
+    id?: string;
+    username: string;
+    password: string;
+    email: string;
 }

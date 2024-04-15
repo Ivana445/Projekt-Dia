@@ -8,7 +8,7 @@ describe('ProgressCircleComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ProgressCircleComponent]
+      imports: [ProgressCircleComponent]
     })
     .compileComponents();
     

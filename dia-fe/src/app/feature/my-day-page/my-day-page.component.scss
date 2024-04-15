@@ -1,0 +1,19 @@
+p{
+  width: 100%;
+  font-size: 3.5rem;
+}
+.content-bg{
+  border: 10px;
+  border-radius: 5% / 10%;
+  width: 100%;
+  height: 75%;
+  margin: 0 auto;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+app-show-list{
+  width: 100%;
+}
+

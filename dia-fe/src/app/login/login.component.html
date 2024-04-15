@@ -1,0 +1,35 @@
+
+<div class="form form-set">
+    <div class="form-username form-set">
+        <span class="p-float-label">
+            <input pInputText id="username" [(ngModel)]="value_username" />
+            <label for="username">Username</label>
+        </span>
+    </div>
+    <div *ngIf="register" class="form-username form-set">
+        <span class="p-float-label">
+            <input pInputText type="email" id="email" [(ngModel)]="value_email" />
+            <label for="email">Email</label>
+        </span>
+    </div>
+    <div class="form-password form-set">
+        <span class="p-float-label">
+            <input pInputText type="password" id="password" [(ngModel)]="value_password" />
+            <label for="password">Password</label>
+        </span>
+        <p class="mt-2">Suggestions</p>
+        <ul class="pl-2 ml-2 mt-0">
+            <li>At least one lowercase</li>
+            <li>At least one uppercase</li>
+            <li>At least one numeric</li>
+            <li>Minimum 8 characters</li>
+        </ul>
+        <button *ngIf="!register" type="submit" class="bg-secondary font-col-white btn" (click)="loginSubmit()">Login</button>
+        <button *ngIf="register" type="submit" class="bg-secondary font-col-white btn" (click)="loginBackSubmit()">Login</button>
+    </div>
+    <div class="w-full md:w-2">
+        <p-divider layout="horizontal" [align]="'center'"><b>OR</b></p-divider>
+    </div>
+    <button *ngIf="!register" type="button" class="bg-secondary font-col-white btn" (click)="registerPageSubmit()">Sing up</button>
+    <button *ngIf="register" type="button" class="bg-secondary font-col-white btn" (click)="registerSubmit()">Sing up</button>
+</div>
