@@ -1,15 +1,15 @@
 package com.example.demo.Perzistent;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
+import java.util.Objects;
 import java.util.Set;
 
 
 @Entity
-@Data //gettre settre to string...
+@Getter
+@Setter//gettre settre to string...
 @NoArgsConstructor //konstruktor
 @AllArgsConstructor //automaticky doplni parametricky konstruktor
 public class ItemEntity {
@@ -18,6 +18,7 @@ public class ItemEntity {
     private Long id;
     private String name;
     private String popis;
+
     @ManyToOne
     private ToDoListEntity toDoListEntities;
 
