@@ -17,25 +17,25 @@ public class ToDoListService {
     @Autowired
     private UserService userService;
 
-    public Long postToDoList(Long userId, ToDoListDTO toDoListDTO) {
-        if (userId == null) {
-            throw new IllegalArgumentException("User id je potrebne na vytvorenie ToDoListu");
-        }
-        UserDTO userDTO = userService.GetLogin(userId); //fetch usera z databazy
-        if (userDTO == null) {
-            throw new IllegalArgumentException("User s ID " + userId + " neexistuje");
-        }
-        ToDoListEntity entity = new ToDoListEntity();
-        entity.setName(toDoListDTO.getName());
-        entity.setDeadline(toDoListDTO.getDeadline());
-
-        UserEntity userEntity = new UserEntity();
-        userEntity.setId(userId);
-        entity.setUser(userEntity);
-
-        ToDoListEntity savedEntity = todoListRepository.save(entity);
-        return savedEntity.getId();
-    }
+//    public Long postToDoList(Long userId, ToDoListDTO toDoListDTO) {
+//        if (userId == null) {
+//            throw new IllegalArgumentException("User id je potrebne na vytvorenie ToDoListu");
+//        }
+//        //UserDTO userDTO = userService.GetLogin(userId); //fetch usera z databazy
+//        if (userDTO == null) {
+//            throw new IllegalArgumentException("User s ID " + userId + " neexistuje");
+//        }
+//        ToDoListEntity entity = new ToDoListEntity();
+//        entity.setName(toDoListDTO.getName());
+//        entity.setDeadline(toDoListDTO.getDeadline());
+//
+//        UserEntity userEntity = new UserEntity();
+//        userEntity.setId(userId);
+//        entity.setUser(userEntity);
+//
+//        ToDoListEntity savedEntity = todoListRepository.save(entity);
+//        return savedEntity.getId();
+//    }
     public ToDoListDTO getToDoListPodlaId(Long id){
         ToDoListEntity entity = todoListRepository.findById(id).orElse(null);
         if (entity != null) {

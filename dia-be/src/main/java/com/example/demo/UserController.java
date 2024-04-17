@@ -1,21 +1,25 @@
 package com.example.demo;
 
 
-import com.example.demo.Service.CalendarDTO;
 import com.example.demo.Service.UserDTO;
 import com.example.demo.Service.UserService;
+import com.example.demo.Security_core.Service2.AuthenticationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
+import java.util.Optional;
 
 @RestController
+@CrossOrigin("*")
 public class UserController {
+    private final String AUTHORIZATION_HEADER = "Authorization";
     @Autowired
     UserService userService;
+    @Autowired
+    AuthenticationService authenticationService;
     @PostMapping("/api/registration")
     public Long UserRegistration(@RequestBody UserDTO userDTO){
-        return userService.userRegistration(userDTO);
+        return userService.registerUser(userDTO);
     }
     @GetMapping("/api/registration/{id}")
     public UserDTO GetRegistration(@PathVariable Long id){
@@ -23,20 +27,43 @@ public class UserController {
     }
 
     @PostMapping("/api/login")
-    public Long PostLogin(@RequestBody UserDTO userDTO){
+    public String PostLogin(@RequestBody UserDTO userDTO){
         return userService.PostLogin(userDTO);
     }
     @GetMapping("api/login/{id}")
-    public UserDTO GetLogin(@PathVariable Long id){
-        return userService.GetLogin(id);
+    public UserDTO GetLogin(@PathVariable Long id /*@RequestHeader("Authorization") String token*/){
+        return userService.GetLogin(id); /*token*/
     }
     @PutMapping("/api/change/{id}")
-    public void ChangePassword(@PathVariable Long id, @RequestBody UserDTO userDTO){
-        userService.ChangePassword(id, userDTO);
+    public void ChangePassword(@PathVariable Long id, @RequestBody UserDTO userDTO, @RequestHeader(value = AUTHORIZATION_HEADER, required = true) Optional<String> authentication){
+        if (authentication.isPresent()) {
+            String token = authentication.get().substring("Bearer".length()).trim();
+            authenticationService.authenticate(token);
+            userService.ChangePassword(id, userDTO);
+        } else {
+            throw new IllegalArgumentException("neda sa");
+        }
     }
     @GetMapping("api/change/{id}")
-    public String GetPassword(@PathVariable Long id){
-        return userService.GetPassword(id);
+    public String GetPassword(@PathVariable Long id, @RequestHeader(value = AUTHORIZATION_HEADER, required = true) Optional<String> authentication){
+        if (authentication.isPresent()){
+            String token = authentication.get().substring("Bearer".length()).trim();
+            authenticationService.authenticate(token);
+            return userService.GetPassword(id, token);
+        }else {
+            throw new IllegalArgumentException("neda sa");
+        }
+
     }
+    @DeleteMapping("/api/logoff")
+    public void logoff(@RequestHeader(value = AUTHORIZATION_HEADER, required = true) Optional<String> authentication) {
+        if (authentication.isPresent()) {
+            String token = authentication.get().substring("Bearer".length()).trim();
+            authenticationService.tokenRemove(token);
+        }else {
+            throw new IllegalArgumentException("neda sa");
+        }
+    }
+
 
 }

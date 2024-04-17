@@ -56,7 +56,7 @@ public class UserTests {
     }
     @Test
     public void testUserRegistration_Success() throws Exception {
-        when(userService.userRegistration(any(UserDTO.class))).thenReturn(1L);
+        when(userService.registerUser(any(UserDTO.class))).thenReturn(1L);
 
         UserDTO userDTO = new UserDTO();
         userDTO.setUsername("testUser");
@@ -71,12 +71,12 @@ public class UserTests {
                 .andExpect(status().isOk())
                 .andDo(System.out::println); // Tisk odpovědi pro ladění
 
-        verify(userService, times(1)).userRegistration(any(UserDTO.class));
+        verify(userService, times(1)).registerUser(any(UserDTO.class));
     }
 
     @Test
     public void testUserRegistration_Failure() throws Exception {
-        when(userService.userRegistration(any(UserDTO.class))).thenReturn(null);
+        when(userService.registerUser(any(UserDTO.class))).thenReturn(null);
 
         UserDTO userDTO = new UserDTO();
         userDTO.setUsername("existingUser");
@@ -91,12 +91,12 @@ public class UserTests {
                 .andExpect(status().isOk())
                 .andDo(System.out::println);
 
-        verify(userService, times(1)).userRegistration(any(UserDTO.class));
+        verify(userService, times(1)).registerUser(any(UserDTO.class));
     }
 
     @Test
     public void testLogin_Success() throws Exception {
-        when(userService.PostLogin(any(UserDTO.class))).thenReturn(1L);
+        when(userService.PostLogin(any(UserDTO.class))).thenReturn(anyString());
 
         UserDTO userDTO = new UserDTO();
         userDTO.setUsername("testUser");
