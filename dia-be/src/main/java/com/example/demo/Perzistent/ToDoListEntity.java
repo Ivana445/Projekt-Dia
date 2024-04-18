@@ -1,16 +1,17 @@
 package com.example.demo.Perzistent;
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Objects;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Getter
-@Setter//gettre settre to string...
+@Data //gettre settre to string...
 @NoArgsConstructor //konstruktor
 @AllArgsConstructor //automaticky doplni parametricky konstruktor
 public class ToDoListEntity {
@@ -21,13 +22,28 @@ public class ToDoListEntity {
 
     private String name;
 
+    //private String items;
+
     private Date deadline;
 
-    @ManyToOne
-    private UserEntity user; //UserEntity
+    @ManyToMany
+    @JoinTable(
+            name = "todo_list_users",
+            joinColumns = @JoinColumn(name = "todo_list_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id"))
+    private Set<UserEntity> users = new HashSet<>();
 
+//    @ManyToMany
+//    private Set<UserEntity> userEntities; //UserEntity
+
+    //@ManyToOne
+   // private CalendarEntity calendar; //CalendarEntity
 
     @OneToMany(mappedBy="toDoListEntities")
     private Set<ItemEntity> item; //ItemEntity
+
+    //@OneToMany(mappedBy = "toDoList")
+    //private Set<ItemEntity> itemEntities;
+
 
 }

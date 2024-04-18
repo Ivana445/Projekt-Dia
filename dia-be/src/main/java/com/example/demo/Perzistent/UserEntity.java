@@ -30,8 +30,10 @@ public class UserEntity {
     @Column(name = "email")
     private String email;
 
-    @OneToMany(mappedBy="user")
-    private Set<ToDoListEntity> toDoListEntities;
+//    @ManyToMany(mappedBy="user")
+//    private Set<ToDoListEntity> toDoListEntities;
+    @ManyToMany(mappedBy = "users")
+    private Set<ToDoListEntity> todoLists = new HashSet<>();
 
     @ManyToMany
     private Set<RoleEntity> roles = new HashSet<>();
