@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {NameTimeComponent} from "../../name-time/name-time.component";
-import {ShowListModule} from "../../../models/show-list.module";
+import {ListModel} from "../../../models/list.model";
 import {CreateNewButtonComponent} from "../../create-new-button/create-new-button.component";
-import {ShowListComponent} from "../../show-list/show-list.component";
+import {ListComponent} from "../../list/list.component";
 import {ProgressCircleComponent} from "../../progress-circle/progress-circle.component";
 import {NgForOf} from "@angular/common";
 import {CalendarComponent} from "../../calendar/calendar.component";
@@ -14,7 +14,7 @@ import {ListService} from "../../../services/list.service";
   imports: [
     NameTimeComponent,
     CreateNewButtonComponent,
-    ShowListComponent,
+    ListComponent,
     ProgressCircleComponent,
     NgForOf,
     CalendarComponent
@@ -29,12 +29,12 @@ export class HomePageComponent implements OnInit{
 
   private readonly listService = ListService
 
-  lists: ShowListModule[] = [{
-    TODOlistname:'My TO DO list'
+  lists: ListModel[] = [{
+    name:'My TO DO list'
   }, {
-    TODOlistname:'My TO DO list 2'
+    name:'My TO DO list 2'
   }, {
-    TODOlistname:'My TO DO list 3'
+    name:'My TO DO list 3'
   }]
 
   ngOnInit() {

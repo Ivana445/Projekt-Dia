@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import {CalendarComponent} from "../../calendar/calendar.component";
-import {ShowListComponent} from "../../show-list/show-list.component";
+import {ListComponent} from "../../list/list.component";
 import {CreateNewButtonComponent} from "../../create-new-button/create-new-button.component";
 
 @Component({
@@ -8,7 +8,7 @@ import {CreateNewButtonComponent} from "../../create-new-button/create-new-butto
   standalone: true,
   imports: [
     CalendarComponent,
-    ShowListComponent,
+    ListComponent,
     CreateNewButtonComponent
   ],
   templateUrl: './calendar-page.component.html',

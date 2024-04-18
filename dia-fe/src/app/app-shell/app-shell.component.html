@@ -1,4 +1,4 @@
-<div [class.closed]="!isNavbarOpen" class="navbar bg-white">
+<div [class.closed]="!isNavbarOpen"  class="navbar bg-white" *ngIf="auth().isLogged"> <!--*ngIf="auth().isLogged"-->
   <ng-content select="[nav]"></ng-content>
 </div>
 <div class="main-container-spacing content bg-primary">

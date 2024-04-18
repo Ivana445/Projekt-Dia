@@ -1,5 +1,5 @@
-import {Component, inject} from '@angular/core';
-import {FormsModule} from "@angular/forms";
+import {Component, inject, Output} from '@angular/core';
+import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
 import {InputTextModule} from "primeng/inputtext";
 import {DividerModule} from "primeng/divider";
 import {PasswordModule} from "primeng/password";
@@ -8,6 +8,7 @@ import {Router, RouterLink} from "@angular/router";
 import {NgIf} from "@angular/common";
 import {LoginService} from "../../services/client/login.service";
 import {HttpClientModule} from "@angular/common/http";
+
 
 
 @Component({
@@ -21,7 +22,8 @@ import {HttpClientModule} from "@angular/common/http";
         ButtonModule,
         RouterLink,
         NgIf,
-        HttpClientModule
+        HttpClientModule,
+        ReactiveFormsModule
     ],
     templateUrl: './login.component.html',
     styleUrl: './login.component.scss'
@@ -30,15 +32,23 @@ export class LoginComponent {
     private readonly loginService = inject(LoginService)
     private readonly router = inject(Router)
 
-    value_username: string | undefined;
-    value_password: string | undefined;
-    value_email: string | undefined;
+
+    constructor(private formBuilder: FormBuilder) {
+    }
+
     register = false
 
+    login: FormGroup = this.formBuilder.group({
+        username: [''],
+        email: [''],
+        password: ['']
+    })
 
-    loginSubmit() {
-        if (this.value_username != null && this.value_password != null) {
-            this.loginService.login(this.value_username, this.value_password).subscribe(
+
+
+    newloginSubmit() {
+        if (this.login.value.name != null && this.login.value.password != null) {
+            this.loginService.login(this.login.value.name, this.login.value.password).subscribe(
                 (response) => {
                     this.router.navigate(['feature/home-page'])
                         .then(() => console.log('uspesne prihlaseny', response))
@@ -59,8 +69,8 @@ export class LoginComponent {
     }
 
     registerSubmit() {
-        if (this.value_username != null && this.value_email != null && this.value_password != null) {
-            this.loginService.register(this.value_username, this.value_email, this.value_password).subscribe(
+        if (this.login.value.name != null && this.login.value.email != null && this.login.value.password != null) {
+            this.loginService.register(this.login.value.name, this.login.value.email, this.login.value.password).subscribe(
                 (response) => {
                     this.router.navigate(['feature/home-page'])
                         .then(() => console.log('uspesne prihlaseny', response))
@@ -68,6 +78,21 @@ export class LoginComponent {
                             console.error('chybne prihlasenie', error)
                         })
                 });
+        }
+    }
+
+    loginSubmit(){
+        const username = this.login.value.username
+        const password = this.login.value.password
+        if (this.login.value.username != null && this.login.value.password != null) {
+                this.loginService.newlogin(username, password).subscribe({
+                    next: ()=> {
+                        console.log('prihlaseny')
+                    },
+                    error: (e) => {
+                        console.log('chyba prihlasenia')
+                    }
+                })
         }
     }
 

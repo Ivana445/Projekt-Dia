@@ -1,21 +1,24 @@
 <div class="title">
-    <input type="text" value="New TO-DO list">
+    <input type="text" [(ngModel)]="newListName" placeholder="New To Do list" (keyup.enter)="updateListName()" >
     <!--<p class="font-white">New TO-DO list</p>-->
     <span class="pi pi-trash"></span>
 </div>
 <div class="content">
     <div class="items">
         <div>
-            <app-item *ngFor="let item of items">
-                <!--{{item.itemname}}-->
+            <app-item *ngFor="let item of items" [name]="item.name">
+                {{item.name}}
             </app-item>
         </div>
-        <input type="text" ><!-- (keyup.enter)="addItem($event.target.value)" -->
+        <input type="text" [(ngModel)]="newItemName" (keyup.enter)="addItem()">
     </div>
     <div class="notification bg-secondary-light">
         <div class="setup">
             <p>Add notification</p>
             <app-calendar></app-calendar>
+        </div>
+        <div class="setup">
+            <button type="submit" (click)="addList()">Add list</button>
         </div>
         <div class="sharing">
             <span class="pi pi-user-plus"></span>

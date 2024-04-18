@@ -1,4 +1,5 @@
 export interface ItemModel{
     id?: string;
-    itemname: string;
+    name: string;
+    popis?: string;
 }

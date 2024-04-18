@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import {CreateNewButtonComponent} from "../../create-new-button/create-new-button.component";
-import {ShowListComponent} from "../../show-list/show-list.component";
-import {ShowListModule} from "../../../models/show-list.module";
+import {ListComponent} from "../../list/list.component";
+import {ListModel} from "../../../models/list.model";
 import {NgForOf} from "@angular/common";
 
 @Component({
@@ -9,7 +9,7 @@ import {NgForOf} from "@angular/common";
   standalone: true,
   imports: [
     CreateNewButtonComponent,
-    ShowListComponent,
+    ListComponent,
     NgForOf
   ],
   templateUrl: './my-day-page.component.html',
@@ -17,11 +17,11 @@ import {NgForOf} from "@angular/common";
 })
 export class MyDayPageComponent {
 
-  lists: ShowListModule[] = [{
-    TODOlistname:'My TO DO list'
+  lists: ListModel[] = [{
+    name:'My TO DO list'
   }, {
-    TODOlistname:'My TO DO list 2'
+    name:'My TO DO list 2'
   }, {
-    TODOlistname:'My TO DO list 3'
+    name:'My TO DO list 3'
   }]
 }

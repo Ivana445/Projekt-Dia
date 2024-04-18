@@ -3,16 +3,21 @@ import {NavigationModel} from "../../../models/navigation.model";
 import {NavItemComponent} from "./nav-item/nav-item.component";
 import {RouterLink} from "@angular/router";
 import {NgForOf} from "@angular/common";
+import {LoginService} from "../../../services/client/login.service";
+import {FormsModule} from "@angular/forms";
 
 @Component({
   selector: 'app-navigation',
   standalone: true,
-  imports: [NavItemComponent, RouterLink, NgForOf],
+  imports: [NavItemComponent, RouterLink, NgForOf, FormsModule],
   templateUrl: './navigation.component.html',
   styleUrl: './navigation.component.scss'
 })
 export class NavigationComponent {
 
+
+  constructor(private loginService: LoginService) {
+  }
 
   protected nav: NavigationModel[] = [{
     routerLink: 'feature/home-page',
@@ -42,4 +47,16 @@ export class NavigationComponent {
     nazov: 'My TO DO list',
     icon: 'assets/images/navIcons/new-list.png'
   }]
+  protected logout: NavigationModel[] = [
+    {
+      routerLink: '',
+      nazov: 'Logout',
+      icon: 'assets/images/navIcons/logout.png'
+    }
+  ]
+
+  auth(): LoginService {
+    return this.loginService;
+  }
+
 }
