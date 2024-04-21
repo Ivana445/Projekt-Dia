@@ -1,8 +1,11 @@
 package com.example.demo.Service;
 
 import com.example.demo.Perzistent.*;
+import com.example.demo.Security_core.Perzistent2.RoleRepository;
+import com.example.demo.Security_core.Service2.AuthenticationService;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -15,28 +18,23 @@ public class ToDoListService {
     private ToDoListRepository todoListRepository;
 
     @Autowired
-    private UserService userService;
+    private AuthenticationService authenticationService;
 
-//    public Long postToDoList(Long userId, ToDoListDTO toDoListDTO) {
-//        if (userId == null) {
-//            throw new IllegalArgumentException("User id je potrebne na vytvorenie ToDoListu");
-//        }
-//        //UserDTO userDTO = userService.GetLogin(userId); //fetch usera z databazy
-//        if (userDTO == null) {
-//            throw new IllegalArgumentException("User s ID " + userId + " neexistuje");
-//        }
-//        ToDoListEntity entity = new ToDoListEntity();
-//        entity.setName(toDoListDTO.getName());
-//        entity.setDeadline(toDoListDTO.getDeadline());
-//
-//        UserEntity userEntity = new UserEntity();
-//        userEntity.setId(userId);
-//        entity.setUser(userEntity);
-//
-//        ToDoListEntity savedEntity = todoListRepository.save(entity);
-//        return savedEntity.getId();
-//    }
-    public ToDoListDTO getToDoListPodlaId(Long id){
+    @PreAuthorize("hasRole('ROLE_USER')")
+    public Long postToDoList(ToDoListDTO toDoListDTO, String token) {
+        authenticationService.authenticate(token);
+
+        ToDoListEntity entity = new ToDoListEntity();
+        entity.setName(toDoListDTO.getName());
+        entity.setDeadline(toDoListDTO.getDeadline());
+
+        ToDoListEntity savedEntity = todoListRepository.save(entity);
+        return savedEntity.getId();
+    }
+    @PreAuthorize("hasRole('ROLE_USER')")
+    public ToDoListDTO getToDoListPodlaId(Long id, String token) {
+        authenticationService.authenticate(token);
+
         ToDoListEntity entity = todoListRepository.findById(id).orElse(null);
         if (entity != null) {
             ToDoListDTO dto = new ToDoListDTO();
@@ -48,8 +46,10 @@ public class ToDoListService {
         return null;
     }
 
+    @PreAuthorize("hasRole('ROLE_USER')")
+    public void putToDoList(Long id, ToDoListDTO toDoListDTO, String token) {
+        authenticationService.authenticate(token);
 
-    public void putToDoList(Long id, ToDoListDTO toDoListDTO){
         ToDoListEntity entity = todoListRepository.findById(id).orElse(null);
         if (entity != null) {
             if (toDoListDTO.getName() != null) {
@@ -62,14 +62,16 @@ public class ToDoListService {
         }
     }
 
-    public void deleteToDoList(Long id){
-        Optional<ToDoListEntity> opt = todoListRepository.findById(id);
-        if (opt.isEmpty()) {
-            return;
-        }
-        ToDoListEntity entity = opt.get();
-        todoListRepository.delete(entity);
+    @PreAuthorize("hasRole('ROLE_USER')")
+    public void deleteToDoList(Long id, String token) {
+        authenticationService.authenticate(token);
 
+        Optional<ToDoListEntity> opt = todoListRepository.findById(id);
+        if (opt.isPresent()) {
+            ToDoListEntity entity = opt.get();
+            todoListRepository.delete(entity);
+        }
     }
+
 
 }
