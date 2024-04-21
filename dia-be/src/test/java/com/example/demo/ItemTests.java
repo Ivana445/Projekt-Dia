@@ -60,7 +60,7 @@ public class ItemTests {
 
     @Test
     public void testPostItem() throws Exception {
-        when(itemService.postItem(any(),any())).thenAnswer(invocation -> {
+        when(itemService.postItem(any(),any(), "token")).thenAnswer(invocation -> {
             Long id = 1L;
             return id;
         });
@@ -84,12 +84,12 @@ public class ItemTests {
                         )
                 );
 
-        verify(itemService, times(1)).postItem(any(), any());
+        verify(itemService, times(1)).postItem(any(), any(), "token");
     }
 
     @Test
     public void testGetItemById() throws Exception{
-        when(itemService.getItemById(any())).thenReturn(
+        when(itemService.getItemById(any(), "token")).thenReturn(
                 new ItemDTO(1L,"task", "popis")
         );
 
@@ -111,12 +111,12 @@ public class ItemTests {
                 )
                 .andReturn();
 
-        verify(itemService, times(1)).getItemById(any());
+        verify(itemService, times(1)).getItemById(any(), "token");
 
     }
     @Test
     public void testPutItem() throws Exception{
-        doNothing().when(itemService).putItem(any(),any(ItemDTO.class));
+        doNothing().when(itemService).putItem(any(),any(ItemDTO.class), "token");
 
         ItemDTO itemDTO = new ItemDTO();
         itemDTO.setName("moj task");
@@ -127,17 +127,17 @@ public class ItemTests {
                 .content(mapper.writeValueAsString(itemDTO))
         ).andExpect(status().isOk());
 
-        verify(itemService, times(1)).putItem(eq(1L), any(ItemDTO.class));
+        verify(itemService, times(1)).putItem(eq(1L), any(ItemDTO.class), "token");
     }
     @Test
     public void testDeleteItem() throws Exception{
-        doNothing().when(itemService).deleteItem(any());
+        doNothing().when(itemService).deleteItem(any(), "token");
 
         mockMvc.perform(
                         delete("/api/item/{id}", 1)
                 )
                 .andExpect(status().isOk());
 
-        verify(itemService, times(1)).deleteItem(any());
+        verify(itemService, times(1)).deleteItem(any(), "token");
     }
 }

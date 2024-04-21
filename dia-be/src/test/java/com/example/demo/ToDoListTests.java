@@ -2,15 +2,19 @@ package com.example.demo;
 
 
 import com.example.demo.Perzistent.ToDoListRepository;
+import com.example.demo.Security_core.Controller.AuthenticationController;
+import com.example.demo.Security_core.Service2.AuthenticationService;
 import com.example.demo.Service.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.restdocs.AutoConfigureRestDocs;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.restdocs.RestDocumentationContextProvider;
 import org.springframework.restdocs.RestDocumentationExtension;
@@ -36,7 +40,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 
 @ExtendWith({RestDocumentationExtension.class, SpringExtension.class})
-@WebMvcTest({ToDoListController.class, UserController.class})
+@WebMvcTest({ToDoListController.class, UserController.class, AuthenticationController.class})
 @AutoConfigureRestDocs(outputDir = "/target/generated-snippets")
 public class ToDoListTests {
 
@@ -47,6 +51,11 @@ public class ToDoListTests {
 
     @MockBean
     private ToDoListService toDoListService;
+
+    @MockBean
+    private AuthenticationService authenticationService;
+
+
 
     @BeforeEach
     public void setUp(WebApplicationContext webApplicationContext,
@@ -59,19 +68,19 @@ public class ToDoListTests {
 
     @Test
     public void testPostToDoList() throws Exception {
-        when(toDoListService.postToDoList(any(),any())).thenAnswer(invocation -> {
-            Long id = 1L;
-            return id;
-        });
+        // Mock service method
+        when(toDoListService.postToDoList(any(), "token")).thenReturn(1L);
 
+        // Prepare DTO
         ToDoListDTO dto = new ToDoListDTO();
         dto.setName("Moj To-Do List");
         dto.setDeadline(new Date());
 
-        //POST request
+        // Perform POST request with token in headers
         mockMvc.perform(
                         post("/api/todolist")
                                 .contentType(MediaType.APPLICATION_JSON)
+                                .header(HttpHeaders.AUTHORIZATION, "Bearer token") // Include token in headers
                                 .content(mapper.writeValueAsString(dto))
                 )
                 .andExpect(status().isOk())
@@ -81,15 +90,16 @@ public class ToDoListTests {
                                 fieldWithPath("name").description("nazov to-do listu"),
                                 fieldWithPath("deadline").description("datum dokoncenia")
                         )
-                    )
-                );
+                ));
 
-        verify(toDoListService, times(1)).postToDoList(any(), any());
+        // Verify service method is called
+        verify(toDoListService, times(1)).postToDoList(any(), "token");
     }
+
 
     @Test
     public void testGetToDoListPodlaId() throws Exception{
-        when(toDoListService.getToDoListPodlaId(any())).thenReturn(
+        when(toDoListService.getToDoListPodlaId(any(), "token")).thenReturn(
                 new ToDoListDTO(1L, "moj to-do list", new Date())
         );
 
@@ -111,12 +121,12 @@ public class ToDoListTests {
                 )
                 .andReturn();
 
-        verify(toDoListService, times(1)).getToDoListPodlaId(any());
+        verify(toDoListService, times(1)).getToDoListPodlaId(any(), "token");
 
     }
     @Test
     public void testPutToDoList() throws Exception{
-        doNothing().when(toDoListService).putToDoList(any(),any(ToDoListDTO.class));
+        doNothing().when(toDoListService).putToDoList(any(),any(ToDoListDTO.class), "token");
 
         ToDoListDTO toDoListDTO = new ToDoListDTO();
         toDoListDTO.setName("Moj to-do list");
@@ -127,17 +137,17 @@ public class ToDoListTests {
                 .content(mapper.writeValueAsString(toDoListDTO))
         ).andExpect(status().isOk());
 
-        verify(toDoListService, times(1)).putToDoList(eq(1L), any(ToDoListDTO.class));
+        verify(toDoListService, times(1)).putToDoList(eq(1L), any(ToDoListDTO.class), "token");
     }
     @Test
     public void testDeleteToDoList() throws Exception{
-        doNothing().when(toDoListService).deleteToDoList(any());
+        doNothing().when(toDoListService).deleteToDoList(any(), "token");
 
         mockMvc.perform(
                         delete("/api/todolist/{id}", 1)
                 )
                 .andExpect(status().isOk());
 
-        verify(toDoListService, times(1)).deleteToDoList(any());
+        verify(toDoListService, times(1)).deleteToDoList(any(), "token");
     }
 }
