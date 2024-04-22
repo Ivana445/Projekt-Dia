@@ -1,5 +1,5 @@
-import {Component, inject, Output} from '@angular/core';
-import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
+import {Component, inject} from '@angular/core';
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
 import {InputTextModule} from "primeng/inputtext";
 import {DividerModule} from "primeng/divider";
 import {PasswordModule} from "primeng/password";
@@ -33,20 +33,20 @@ export class LoginComponent {
     private readonly router = inject(Router)
 
 
-    constructor(private formBuilder: FormBuilder) {
+    constructor() {
     }
 
     register = false
 
-    login: FormGroup = this.formBuilder.group({
-        username: [''],
-        email: [''],
-        password: ['']
+    login= new FormGroup ({
+        username: new FormControl('', Validators.required),
+        email: new FormControl('', [Validators.required, Validators.email]),
+        password: new FormControl('', Validators.required)
     })
 
 
 
-    newloginSubmit() {
+    /*newloginSubmit() {
         if (this.login.value.name != null && this.login.value.password != null) {
             this.loginService.login(this.login.value.name, this.login.value.password).subscribe(
                 (response) => {
@@ -60,6 +60,8 @@ export class LoginComponent {
         }
     }
 
+     */
+
     loginBackSubmit() {
         this.register = false
     }
@@ -69,8 +71,8 @@ export class LoginComponent {
     }
 
     registerSubmit() {
-        if (this.login.value.name != null && this.login.value.email != null && this.login.value.password != null) {
-            this.loginService.register(this.login.value.name, this.login.value.email, this.login.value.password).subscribe(
+        if (this.login.controls.username.value != null && this.login.controls.email.value != null && this.login.controls.password.value != null) {
+            this.loginService.register(this.login.controls.username.value, this.login.controls.email.value, this.login.controls.password.value).subscribe(
                 (response) => {
                     this.router.navigate(['feature/home-page'])
                         .then(() => console.log('uspesne prihlaseny', response))
@@ -82,15 +84,14 @@ export class LoginComponent {
     }
 
     loginSubmit(){
-        const username = this.login.value.username
-        const password = this.login.value.password
-        if (this.login.value.username != null && this.login.value.password != null) {
-                this.loginService.newlogin(username, password).subscribe({
+        if (this.login.controls.username.value && this.login.controls.password.value) {
+                this.loginService.newlogin(this.login.controls.username.value, this.login.controls.password.value).subscribe({
                     next: ()=> {
+                        this.router.navigate(['feature/home-page']).then()
                         console.log('prihlaseny')
                     },
-                    error: (e) => {
-                        console.log('chyba prihlasenia')
+                    error: (err) => {
+                        console.log('chyba prihlasenia', err)
                     }
                 })
         }

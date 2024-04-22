@@ -1,6 +1,8 @@
 import {Component, inject} from '@angular/core';
 import {DatePipe} from "@angular/common";
 import {UserService} from "../../services/client/user.service";
+import {UserModel} from "../../models/user.model";
+import {LoginService} from "../../services/client/login.service";
 
 @Component({
   selector: 'app-name-time',
@@ -14,14 +16,19 @@ import {UserService} from "../../services/client/user.service";
 export class NameTimeComponent {
 
   private readonly userService = inject(UserService)
+  private readonly loginService = inject(LoginService)
 
 
-  username='Blueberry'
+  user : UserModel | null
+
+  username: string | undefined =''
   //time='10:55'
 
   currentTime!: Date;
 
-  constructor() { }
+  constructor() {
+    this.user = this.loginService.getUser()
+  }
 
 
   ngOnInit(): void {
@@ -35,8 +42,7 @@ export class NameTimeComponent {
     this.currentTime = new Date();
   }
 
-  userName():string{
-    //this.userService.getUsername()
-    return 'null'
+  userName(){
+    this.username = this.user?.username
   }
 }
