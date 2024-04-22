@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.nio.charset.StandardCharsets;
+import java.util.Base64;
 import java.util.Optional;
 
 import static com.example.demo.Security_core.Controller.AuthenticationController.credentialsDecode;
@@ -21,6 +23,7 @@ public class UserController {
     UserService userService;
     @Autowired
     AuthenticationService authenticationService;
+
     @PostMapping("/api/registration")
     public void UserRegistration(@RequestBody UserDTO userDTO, HttpServletResponse response){
         String token = userService.registerUser(userDTO);

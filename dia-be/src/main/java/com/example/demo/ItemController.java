@@ -20,7 +20,7 @@ public class ItemController {
     private AuthenticationService authenticationService;
 
     @PostMapping("/api/todolist/{todolistId}/items")
-    public Long createItem(@PathVariable("todolistId") Long todolistId, @RequestBody ItemDTO itemDTO, @RequestHeader(value = AUTHORIZATION_HEADER, required = true) Optional<String> authentication) {
+    public Long postItem(@PathVariable("todolistId") Long todolistId, @RequestBody ItemDTO itemDTO, @RequestHeader(value = AUTHORIZATION_HEADER, required = true) Optional<String> authentication) {
         if (authentication.isPresent()){
             String token = authentication.get().substring("Bearer".length()).trim();
             authenticationService.authenticate(token);

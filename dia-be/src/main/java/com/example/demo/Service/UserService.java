@@ -132,13 +132,7 @@ public class UserService{
     }
     @PreAuthorize("hasRole('ROLE_USER')")
     public void ChangePassword(Long id, UserDTO userDTO){
-//        System.out.println("2. aut" + token);
-//        authenticationService.authenticate(token);
-
-        //System.out.println("zaciatok change " + token);
-        //if (token != null) {
             System.out.println("if ");
-            // Získam používateľa z databázy podľa ID
             Optional<UserEntity> userOptional = userRepository.findById(id);
             if (userOptional.isPresent()) {
                 UserEntity userEntity = userOptional.get();
@@ -160,9 +154,6 @@ public class UserService{
             } else {
                 throw new IllegalArgumentException("User with id " + id + " does not exist");
             }
-//        }else {
-//            throw new IllegalArgumentException("Token is null" + token);
-//        }
 
     }
     @PreAuthorize("hasRole('ROLE_USER')")
