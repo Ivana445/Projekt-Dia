@@ -1,5 +1,7 @@
 package com.example.demo.Security_core.Service2;
+import org.apache.tomcat.util.net.openssl.ciphers.Authentication;
 import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -37,6 +39,7 @@ public class AuthenticationService {
         this.tokenRepository = tokenRepository;
         this.passwordEncoder = new BCryptPasswordEncoder();
     }
+
 
     @Transactional
     public String authenticate(String username, String password) {

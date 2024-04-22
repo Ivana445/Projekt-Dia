@@ -1,17 +1,24 @@
 package com.example.demo.Service;
 
 import com.example.demo.Perzistent.*;
+import com.example.demo.Security_core.Perzistent2.RoleEntity;
 import com.example.demo.Security_core.Perzistent2.RoleRepository;
+import com.example.demo.Security_core.Perzistent2.TokenEntity;
+import com.example.demo.Security_core.Perzistent2.TokenRepository;
 import com.example.demo.Security_core.Service2.AuthenticationService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 
 @Service
@@ -25,16 +32,26 @@ public class ToDoListService {
 
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private TokenRepository tokenRepository;
 
     @PreAuthorize("hasRole('ROLE_USER')")
     public Long postToDoList(ToDoListDTO toDoListDTO, String token) {
+        Optional<TokenEntity> optionalToken = tokenRepository.findByToken(token);
 
         ToDoListEntity entity = new ToDoListEntity();
-        entity.setName(toDoListDTO.getName());
-        entity.setDeadline(toDoListDTO.getDeadline());
+        Optional<UserEntity> userOptional = userRepository.findByEmail(optionalToken.get().getUser().getEmail());
+        UserEntity user = userOptional.get();
 
-        ToDoListEntity savedEntity = todoListRepository.save(entity);
-        return savedEntity.getId();
+        if (user != null) {
+            entity.getUsers().add(user);
+            entity.setName(toDoListDTO.getName());
+            entity.setDeadline(toDoListDTO.getDeadline());
+            todoListRepository.save(entity);
+        }else {
+            throw new IllegalArgumentException("neda sa");
+        }
+        return entity.getId();
     }
     @PreAuthorize("hasRole('ROLE_USER')")
     public ToDoListDTO getToDoListPodlaId(Long id, String token) {
