@@ -4,19 +4,22 @@ import com.example.demo.Perzistent.UserEntity;
 import com.example.demo.Perzistent.UserRepository;
 import com.example.demo.Security_core.Perzistent2.RoleEntity;
 import com.example.demo.Security_core.Perzistent2.RoleRepository;
+import com.example.demo.Security_core.Perzistent2.TokenEntity;
+import com.example.demo.Security_core.Perzistent2.TokenRepository;
 import com.example.demo.Security_core.Service2.AuthenticationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestHeader;
 
 import javax.management.relation.Role;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Optional;
-import java.util.Set;
+import java.time.LocalDateTime;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import static com.example.demo.Security_core.Controller.AuthenticationController.credentialsDecode;
 
 @Service
 public class UserService{
@@ -25,6 +28,8 @@ public class UserService{
     private UserRepository userRepository;
     @Autowired
     private RoleRepository roleRepository;
+    @Autowired
+    private TokenRepository tokenRepository;
 
     @Autowired
     private AuthenticationService authenticationService;
@@ -45,7 +50,7 @@ public class UserService{
         Matcher matcher = pattern.matcher(email);
         return matcher.matches();
     }
-    public Long registerUser(UserDTO userDTO) {
+    public String registerUser(UserDTO userDTO) {
         if (userRepository.existsByUsername(userDTO.getUsername())) {
             throw new IllegalArgumentException("Username is already in use.");
         }
@@ -68,7 +73,17 @@ public class UserService{
         }
         userRepository.save(user);
         //generateTokenForUser(userDTO.getUsername());
-        return user.getId();
+
+        // vytvor token
+        TokenEntity token = new TokenEntity();
+        Set<String> userRoles = new HashSet<>();
+        String randomString = UUID.randomUUID().toString();
+        token.setToken(randomString);
+        token.setUser(user);
+        token.setCreatedAt(LocalDateTime.now());
+        tokenRepository.save(token);
+
+        return token.getToken();
     }
 
 
@@ -94,26 +109,10 @@ public class UserService{
         dto.setUsername(entity.getUsername());
         dto.setEmail(entity.getEmail());
         dto.setPassword(entity.getPassword());
+
         return dto;
     }
-    //@PreAuthorize("hasRole('ROLE_USER')")
-    public String PostLogin(UserDTO userDTO) { //string
-         //Získanie používateľa z databázy podľa používateľského mena
-        String token = authenticationService.authenticate(userDTO.getUsername(), userDTO.getPassword());
 
-         //Ak autentifikácia bola úspešná, môžeme vrátiť používateľské ID
-        if (token != null) {
-            Optional<UserEntity> userOptional = userRepository.findByUsername(userDTO.getUsername());
-            if (userOptional.isPresent()) {
-                UserEntity user = userOptional.get();
-                return token;
-            }
-        }
-
-        // Ak autentifikácia zlyhala, vrátime null
-        return null;
-    }
-   // @PreAuthorize("hasRole('ROLE_USER')")
     public UserDTO GetLogin(Long id){
         // Overíme platnosť autentifikačného tokenu
         //authentificationService.authenticate(token);

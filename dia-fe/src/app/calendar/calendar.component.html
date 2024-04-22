@@ -1,3 +1,16 @@
+<!--
 <p-calendar class="max-w-full" [(ngModel)]="date" [inline]="true" [showWeek]="true"></p-calendar>
+-->
+
+<p-calendar [inline]="true" [showButtonBar]="true" [showTime]="false">
+    <ng-template pTemplate="day" let-date>
+        <div class="day-container" > <!-- [ngClass]="{'deadline': isDeadlineReached(date)}" -->
+            <span>{{ date.day }}</span>
+            <ul>
+                <li *ngFor="let list of lists">{{ list.name }}</li>
+            </ul>
+        </div>
+    </ng-template>
+</p-calendar>
 
 

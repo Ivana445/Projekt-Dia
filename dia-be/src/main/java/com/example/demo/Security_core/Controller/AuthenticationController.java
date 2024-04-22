@@ -34,7 +34,7 @@ AuthenticationController {
         response.addHeader(AUTHORIZATION_HEADER, "Bearer " + token);
     }
 
-    private static String[] credentialsDecode(String authorization) {
+    public static String[] credentialsDecode(String authorization) {
         String base64Credentials = authorization.substring("Basic".length()).trim();
         byte[] credDecoded = Base64.getDecoder().decode(base64Credentials);
         String credentials = new String(credDecoded, StandardCharsets.UTF_8);

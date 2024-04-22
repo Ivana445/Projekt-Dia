@@ -21,13 +21,8 @@ public class ToDoListController {
 
     @PostMapping("/api/todolist")
     public Long postToDoList(@RequestBody ToDoListDTO toDoListDTO, @RequestHeader(value = AUTHORIZATION_HEADER, required = true) Optional<String> authentication) {
-        if (authentication.isPresent()){
-            String token = authentication.get().substring("Bearer".length()).trim();
-            authenticationService.authenticate(token);
-            return toDoListService.postToDoList(toDoListDTO, token);
-        }else {
-            throw new IllegalArgumentException("Chyba v autentifikácii");
-        }
+        String token = authentication.get().substring("Bearer".length()).trim();
+        return toDoListService.postToDoList(toDoListDTO, token);
     }
     @GetMapping("/api/todolist/{id}")
     public ToDoListDTO getToDoListPodlaId(@PathVariable Long id, @RequestHeader(value = AUTHORIZATION_HEADER, required = true) Optional<String> authentication) {

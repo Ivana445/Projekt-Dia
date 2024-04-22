@@ -1,5 +1,6 @@
 import {Component, inject, Input, OnInit} from '@angular/core';
 import {ItemService} from "../../services/item.service";
+import {ItemModel} from "../../models/item.module";
 
 @Component({
   selector: 'app-item',
@@ -12,6 +13,13 @@ export class ItemComponent implements OnInit{
 
   private readonly itemService = inject(ItemService)
 
+  item :{ name: string }[]
+  constructor() {
+    this.item = [{
+      name: 'nieco'
+    }]
+  }
+
   @Input()
   name=''
 
@@ -19,6 +27,10 @@ export class ItemComponent implements OnInit{
     //this.itemService.getItem()
   }
 
+  deleteItem(){
+    console.log('vymazany item')
+    //this.itemService.deleteItem()
+  }
   ngOnInit() {
     this.getItem()
   }

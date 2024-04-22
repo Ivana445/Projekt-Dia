@@ -4,10 +4,14 @@ package com.example.demo;
 import com.example.demo.Service.UserDTO;
 import com.example.demo.Service.UserService;
 import com.example.demo.Security_core.Service2.AuthenticationService;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
+
+import static com.example.demo.Security_core.Controller.AuthenticationController.credentialsDecode;
 
 @RestController
 @CrossOrigin("*")
@@ -18,17 +22,25 @@ public class UserController {
     @Autowired
     AuthenticationService authenticationService;
     @PostMapping("/api/registration")
-    public Long UserRegistration(@RequestBody UserDTO userDTO){
-        return userService.registerUser(userDTO);
+    public void UserRegistration(@RequestBody UserDTO userDTO, HttpServletResponse response){
+        String token = userService.registerUser(userDTO);
+        response.setStatus(HttpStatus.OK.value());
+        response.addHeader("Authorization", "Bearer " + token);
     }
+
     @GetMapping("/api/registration/{id}")
     public UserDTO GetRegistration(@PathVariable Long id){
         return userService.GetRegistration(id);
     }
 
     @PostMapping("/api/login")
-    public String PostLogin(@RequestBody UserDTO userDTO){
-        return userService.PostLogin(userDTO);
+    public void PostLogin(@RequestHeader(value = "Authorization", required = false) Optional<String> authentication,
+                            HttpServletResponse response){
+
+        String[] credentials = credentialsDecode(authentication.get());
+        String token = authenticationService.authenticate(credentials[0], credentials[1]);
+        response.setStatus(HttpStatus.OK.value());
+        response.addHeader("Authorization", "Bearer " + token);
     }
     @GetMapping("api/login/{id}")
     public UserDTO GetLogin(@PathVariable Long id /*@RequestHeader("Authorization") String token*/){
@@ -56,7 +68,7 @@ public class UserController {
 
     }
     @DeleteMapping("/api/logoff")
-    public void logoff(@RequestHeader(value = AUTHORIZATION_HEADER, required = true) Optional<String> authentication) {
+    public void logoff(@RequestHeader(value = "Authorization", required = true) Optional<String> authentication) {
         if (authentication.isPresent()) {
             String token = authentication.get().substring("Bearer".length()).trim();
             authenticationService.tokenRemove(token);
