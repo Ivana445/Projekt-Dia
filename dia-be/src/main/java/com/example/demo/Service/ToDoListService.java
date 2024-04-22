@@ -22,7 +22,6 @@ public class ToDoListService {
 
     @PreAuthorize("hasRole('ROLE_USER')")
     public Long postToDoList(ToDoListDTO toDoListDTO, String token) {
-        authenticationService.authenticate(token);
 
         ToDoListEntity entity = new ToDoListEntity();
         entity.setName(toDoListDTO.getName());
@@ -33,7 +32,7 @@ public class ToDoListService {
     }
     @PreAuthorize("hasRole('ROLE_USER')")
     public ToDoListDTO getToDoListPodlaId(Long id, String token) {
-        authenticationService.authenticate(token);
+
 
         ToDoListEntity entity = todoListRepository.findById(id).orElse(null);
         if (entity != null) {
@@ -48,7 +47,7 @@ public class ToDoListService {
 
     @PreAuthorize("hasRole('ROLE_USER')")
     public void putToDoList(Long id, ToDoListDTO toDoListDTO, String token) {
-        authenticationService.authenticate(token);
+
 
         ToDoListEntity entity = todoListRepository.findById(id).orElse(null);
         if (entity != null) {
@@ -64,7 +63,7 @@ public class ToDoListService {
 
     @PreAuthorize("hasRole('ROLE_USER')")
     public void deleteToDoList(Long id, String token) {
-        authenticationService.authenticate(token);
+
 
         Optional<ToDoListEntity> opt = todoListRepository.findById(id);
         if (opt.isPresent()) {

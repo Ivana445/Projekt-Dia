@@ -20,7 +20,7 @@ public class ItemService {
 
     @PreAuthorize("hasRole('ROLE_USER')")
     public Long postItem(Long toDoListId, ItemDTO itemDTO, String token) {
-        authenticationService.authenticate(token);
+
         ItemEntity entity = new ItemEntity();
         entity.setName(itemDTO.getName());
         entity.setPopis(itemDTO.getPopis());
@@ -36,7 +36,6 @@ public class ItemService {
 
     @PreAuthorize("hasRole('ROLE_USER')")
     public ItemDTO getItemById(Long itemId, String token) {
-        authenticationService.authenticate(token);
 
         ItemEntity entity = itemRepository.findById(itemId).orElse(null);
         if (entity != null) {
@@ -50,7 +49,6 @@ public class ItemService {
 
     @PreAuthorize("hasRole('ROLE_USER')")
     public void putItem(Long itemId, ItemDTO itemDTO, String token) {
-        authenticationService.authenticate(token);
 
         ItemEntity itemEntity = itemRepository.findById(itemId)
                 .orElseThrow(() -> new IllegalArgumentException("Item neexistuje"));
@@ -63,7 +61,6 @@ public class ItemService {
 
     @PreAuthorize("hasRole('ROLE_USER')")
     public void deleteItem(Long itemId, String token) {
-        authenticationService.authenticate(token);
 
         if (!itemRepository.existsById(itemId)) {
             throw new IllegalArgumentException("Item neexistuje");
