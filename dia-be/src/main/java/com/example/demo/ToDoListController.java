@@ -48,6 +48,15 @@ public class ToDoListController {
             throw new IllegalArgumentException("Chyba v autentifikácii");
         }
     }
+    @PutMapping("/api/todolist/change/{id}")
+    public void addUser(@PathVariable Long id, @RequestBody UserDTO userDTO, @RequestHeader(value = AUTHORIZATION_HEADER, required = true) Optional<String> authentication){
+        if (authentication.isPresent()) {
+            String token = authentication.get().substring("Bearer".length()).trim();
+            toDoListService.addUser(id,userDTO,token);
+        }else {
+            throw new IllegalArgumentException("chyba");
+        }
+    }
 
     @DeleteMapping("/api/todolist/{id}")
     public void deleteToDoList(@PathVariable Long id, @RequestHeader(value = AUTHORIZATION_HEADER, required = true) Optional<String> authentication) {
@@ -58,6 +67,8 @@ public class ToDoListController {
             throw new IllegalArgumentException("Chyba v autentifikácii");
         }
     }
+
+
 
 
 }

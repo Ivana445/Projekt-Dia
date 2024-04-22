@@ -38,4 +38,7 @@ public class UserEntity {
     @ManyToMany
     private Set<RoleEntity> roles = new HashSet<>();
 
+    public Set<ToDoListEntity> getTodoLists() {
+        return todoLists;
+    }
 }

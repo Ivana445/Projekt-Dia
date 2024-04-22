@@ -7,6 +7,8 @@ import com.example.demo.Security_core.Service2.AuthenticationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.nio.charset.StandardCharsets;
+import java.util.Base64;
 import java.util.Optional;
 
 @RestController
@@ -17,6 +19,7 @@ public class UserController {
     UserService userService;
     @Autowired
     AuthenticationService authenticationService;
+
     @PostMapping("/api/registration")
     public Long UserRegistration(@RequestBody UserDTO userDTO){
         return userService.registerUser(userDTO);
