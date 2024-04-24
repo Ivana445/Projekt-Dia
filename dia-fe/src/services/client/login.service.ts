@@ -14,28 +14,38 @@ export class LoginService{
 
     private apiUrlAuth: string = "http://localhost:8080/api/login";
 
+    private apiUrlLogoff: string = "http://localhost:8080/api/logoff";
+
     constructor() {
     }
 
+    newlogin(username: string , password: string): Observable<any>{
 
-    login(username: string, password:string): Observable<any>{
-        return this.http.post<any>(`${this.apiUrl}/login`, { username, password });
-    }
-    register(username: string, email: string, password:string): Observable<any>{
-        return this.http.post<any>(`${this.apiUrl}/registration`, { username, email, password });
-    }
-
-    newlogin(username: string | undefined, password: string | undefined): Observable<any>{
+        const loginData: UserModel = {email: "", username,password}
 
         const headers = new HttpHeaders({
             'Content-Type': 'application/json',
             'Authorization': 'Basic ' + btoa(username +':'+ password)
         });
         return this.http.post<any>(this.apiUrlAuth, null, {headers, observe: 'response'}).pipe(
-            tap((response: HttpResponse<any>) => this.setToken(response.headers.get("Authorization"))),
-            switchMap((user: HttpResponse<any>) => this.http.get<any>(this.apiUrlAuth).pipe(
-                    tap((user: UserModel) => this.setUser(user))
-                )
+            tap((response: HttpResponse<any>) => {
+                    this.setToken(response.headers.get("Authorization"));
+                    this.setUser(loginData)
+                }
+            )
+        )
+    }
+
+    register(username: string | undefined, email: string | undefined, password: string | undefined): Observable<any>{
+
+        const headers = new HttpHeaders({
+            'Content-Type': 'application/json'
+        })
+        return this.http.post<any>(`${this.apiUrl}/registration`, { username, email, password }, {headers, observe: 'response'}).pipe(
+            tap((response: HttpResponse<any>) => {
+                    this.setToken(response.headers.get("Authorization"));
+                    //this.setUser(response.body)
+                }
             )
         )
     }
@@ -68,7 +78,7 @@ export class LoginService{
 
 
     logout(): Observable<any> {
-        return this.http.delete(this.apiUrlAuth, {}).pipe(
+        return this.http.delete(this.apiUrlLogoff, {}).pipe(
             tap( () => { localStorage.removeItem('token'); localStorage.removeItem('user'); } )
         )
     }

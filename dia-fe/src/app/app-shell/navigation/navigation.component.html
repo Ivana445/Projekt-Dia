@@ -4,5 +4,5 @@
   <app-nav-item *ngFor="let task of tasks" [routerLink]="task.routerLink" [nazov]="task.nazov"></app-nav-item>
   <hr class="p-divider">
   <app-nav-item *ngFor="let usernavigation of usernav" [routerLink]="usernavigation.routerLink" [nazov]="usernavigation.nazov"></app-nav-item>
-  <button type="button" (click)="logoutSubmit()">Log Out</button>
+  <button type="button" (click)="logoutSubmit()"><span class="pi pi-sign-out"></span> Log Out</button>
 </nav>

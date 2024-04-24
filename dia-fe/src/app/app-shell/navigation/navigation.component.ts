@@ -1,7 +1,7 @@
-import {Component} from '@angular/core';
+import {Component, inject} from '@angular/core';
 import {NavigationModel} from "../../../models/navigation.model";
 import {NavItemComponent} from "./nav-item/nav-item.component";
-import {RouterLink} from "@angular/router";
+import {Router, RouterLink} from "@angular/router";
 import {NgForOf} from "@angular/common";
 import {LoginService} from "../../../services/client/login.service";
 import {FormsModule} from "@angular/forms";
@@ -14,6 +14,8 @@ import {FormsModule} from "@angular/forms";
   styleUrl: './navigation.component.scss'
 })
 export class NavigationComponent {
+
+  private readonly router = inject(Router)
 
 
   constructor(private loginService: LoginService) {
@@ -41,19 +43,13 @@ export class NavigationComponent {
     routerLink: 'feature/new-list-page',
     nazov: 'My TO DO list',
   }]
-  protected logout: NavigationModel[] = [
-    {
-      routerLink: '',
-      nazov: 'Logout',
-    }
-  ]
 
-  auth(): LoginService {
-    return this.loginService;
+  withoutLink(){
+    this.loginService.isLogged()
   }
   logoutSubmit(): void {
     this.loginService.logout().subscribe({
-      next: () => console.log('odhlaseny..')
+      next: () => this.router.navigate(['login'])
     });
   }
 

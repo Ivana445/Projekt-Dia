@@ -1,5 +1,5 @@
 import {inject, Injectable} from "@angular/core";
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {ListModel} from "../models/list.model";
 
@@ -11,19 +11,37 @@ export class ListService{
     http = inject(HttpClient)
     apiUrl = 'http://localhost:8080/api'
 
-    getList(listModule: ListModel):Observable<any>{
-        return this.http.get<any>(`${this.apiUrl}/todolist/${listModule.id}`)
+    getList(id: number, token: string): Observable<any> {
+        const headers = new HttpHeaders({
+            'Authorization': `Bearer ${token}`
+        });
+
+        return this.http.get<any>(`${this.apiUrl}/todolist/${id}`, { headers });
     }
 
-    postList(listModule: ListModel):Observable<any>{
-        return this.http.post<string>(`${this.apiUrl}/todolist`, {listModule})
+    postList(listModule: ListModel, token: string):Observable<any>{
+        const headers = new HttpHeaders({
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        });
+
+        return this.http.post<any>(`${this.apiUrl}/todolist`, listModule, { headers });
     }
 
-    putList(listModule: ListModel):Observable<any>{
-        return this.http.put<string>(`${this.apiUrl}/todolist/${listModule.id}`, {listModule})
+    putList(listModule: ListModel, token: string): Observable<void> {
+        const headers = new HttpHeaders({
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        });
+
+        return this.http.put<void>(`${this.apiUrl}/todolist/${listModule.id}`, listModule, { headers });
     }
-    deleteList(listModule: ListModel):Observable<number>{
-        return this.http.delete<number>(`${this.apiUrl}/todolist/${listModule.id}`)
+    deleteList(id: number, token: string): Observable<void> {
+        const headers = new HttpHeaders({
+            'Authorization': `Bearer ${token}`
+        });
+
+        return this.http.delete<void>(`${this.apiUrl}/todolist/${id}`, { headers });
     }
 
 

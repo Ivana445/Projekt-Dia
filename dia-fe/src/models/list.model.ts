@@ -1,5 +1,5 @@
 export interface ListModel {
-    id?: string;
+    id?: number;
     name: string;
     deadLine?: Date;
 }

@@ -17,8 +17,7 @@ import {NgIf} from "@angular/common";
   styleUrl: './app-shell.component.scss'
 })
 export class AppShellComponent {
-  protected isSidebarOpen: boolean = false;
-  protected isNavbarOpen: boolean = false;
+  protected isNavbarOpen: boolean = true ;
   private readonly navigationService = inject(NavigationService)
 
   private readonly loginService = inject(LoginService)
@@ -31,11 +30,11 @@ export class AppShellComponent {
 
 
   constructor() {
-    this.navigationService.sidebarOpen$.subscribe(open => this.isSidebarOpen = open);
-    this.navigationService.navbarOpen$.subscribe(open => this.isNavbarOpen = open);
+    this.navigationService.navbarOpen$.subscribe(open => this.isNavbarOpen = true);
   }
 
   auth(): LoginService {
     return this.loginService;
   }
+
 }

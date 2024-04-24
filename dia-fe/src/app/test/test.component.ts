@@ -28,7 +28,4 @@ export class TestComponent {
     this.navigationService.toggleNavbar()
   }
 
-  toggleSidebar() {
-    this.navigationService.toggleSidebar()
-  }
 }
