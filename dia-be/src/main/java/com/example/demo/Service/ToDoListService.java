@@ -16,6 +16,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -55,8 +57,6 @@ public class ToDoListService {
     }
     @PreAuthorize("hasRole('ROLE_USER')")
     public ToDoListDTO getToDoListPodlaId(Long id, String token) {
-
-
         ToDoListEntity entity = todoListRepository.findById(id).orElse(null);
         if (entity != null) {
             ToDoListDTO dto = new ToDoListDTO();
@@ -67,6 +67,23 @@ public class ToDoListService {
         }
         return null;
     }
+
+    @PreAuthorize("hasRole('ROLE_USER')")
+    public List<ToDoListDTO> getAllToDoLists(String token) {
+        Optional<TokenEntity> optionalToken = tokenRepository.findByToken(token);
+        UserEntity user = optionalToken.get().getUser();
+
+        List<ToDoListDTO> toDoListDTOs = new ArrayList<>();
+        for (ToDoListEntity toDoListEntity : user.getTodoLists()) {
+            ToDoListDTO toDoListDTO = new ToDoListDTO();
+            toDoListDTO.setId(toDoListEntity.getId());
+            toDoListDTO.setName(toDoListEntity.getName());
+            toDoListDTO.setDeadline(toDoListEntity.getDeadline());
+            toDoListDTOs.add(toDoListDTO);
+        }
+        return toDoListDTOs;
+    }
+
 
     @PreAuthorize("hasRole('ROLE_USER')")
     public void putToDoList(Long id, ToDoListDTO toDoListDTO, String token) {

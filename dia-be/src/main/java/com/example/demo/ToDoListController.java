@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -26,41 +27,31 @@ public class ToDoListController {
     }
     @GetMapping("/api/todolist/{id}")
     public ToDoListDTO getToDoListPodlaId(@PathVariable Long id, @RequestHeader(value = AUTHORIZATION_HEADER, required = true) Optional<String> authentication) {
-        if (authentication.isPresent()) {
             String token = authentication.get().substring("Bearer".length()).trim();
             return toDoListService.getToDoListPodlaId(id, token);
-        } else {
-            throw new IllegalArgumentException("Chyba v autentifikácii");
-        }
+    }
+
+    @GetMapping("/api/todolist/all")
+    public List<ToDoListDTO> getAllToDoLists(@RequestHeader(value = AUTHORIZATION_HEADER, required = true) Optional<String> authentication){
+        String token = authentication.get().substring("Bearer".length()).trim();
+        return toDoListService.getAllToDoLists(token);
     }
 
     @PutMapping("/api/todolist/{id}")
     public void putToDoList(@PathVariable Long id, @RequestBody ToDoListDTO toDoListDTO, @RequestHeader(value = AUTHORIZATION_HEADER, required = true) Optional<String> authentication) {
-        if (authentication.isPresent()) {
             String token = authentication.get().substring("Bearer".length()).trim();
             toDoListService.putToDoList(id, toDoListDTO, token);
-        } else {
-            throw new IllegalArgumentException("Chyba v autentifikácii");
-        }
     }
     @PutMapping("/api/todolist/change/{id}")
     public void addUser(@PathVariable Long id, @RequestBody UserDTO userDTO, @RequestHeader(value = AUTHORIZATION_HEADER, required = true) Optional<String> authentication){
-        if (authentication.isPresent()) {
             String token = authentication.get().substring("Bearer".length()).trim();
             toDoListService.addUser(id,userDTO,token);
-        }else {
-            throw new IllegalArgumentException("chyba");
-        }
     }
 
     @DeleteMapping("/api/todolist/{id}")
     public void deleteToDoList(@PathVariable Long id, @RequestHeader(value = AUTHORIZATION_HEADER, required = true) Optional<String> authentication) {
-        if (authentication.isPresent()) {
             String token = authentication.get().substring("Bearer".length()).trim();
             toDoListService.deleteToDoList(id, token);
-        } else {
-            throw new IllegalArgumentException("Chyba v autentifikácii");
-        }
     }
 
 

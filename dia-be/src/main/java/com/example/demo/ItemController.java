@@ -21,42 +21,26 @@ public class ItemController {
 
     @PostMapping("/api/todolist/{todolistId}/items")
     public Long postItem(@PathVariable("todolistId") Long todolistId, @RequestBody ItemDTO itemDTO, @RequestHeader(value = AUTHORIZATION_HEADER, required = true) Optional<String> authentication) {
-        if (authentication.isPresent()){
             String token = authentication.get().substring("Bearer".length()).trim();
             authenticationService.authenticate(token);
             return itemService.postItem(todolistId, itemDTO, token);
-        }else {
-            throw new IllegalArgumentException("Chyba v autentifikácii");
-        }
     }
 
     @GetMapping("/api/item/{id}")
     public ItemDTO getItemById(@PathVariable Long id, @RequestHeader(value = AUTHORIZATION_HEADER, required = true) Optional<String> authentication) {
-        if (authentication.isPresent()) {
             String token = authentication.get().substring("Bearer".length()).trim();
             return itemService.getItemById(id, token);
-        } else {
-            throw new IllegalArgumentException("Chyba v autentifikácii");
-        }
     }
 
     @PutMapping("/api/item/{id}")
     public void putItem(@PathVariable Long id, @RequestBody ItemDTO itemDTO, @RequestHeader(value = AUTHORIZATION_HEADER, required = true) Optional<String> authentication) {
-        if (authentication.isPresent()) {
             String token = authentication.get().substring("Bearer".length()).trim();
             itemService.putItem(id, itemDTO, token);
-        } else {
-            throw new IllegalArgumentException("Chyba v autentifikácii");
-        }
     }
 
     @DeleteMapping("/api/item/{id}")
     public void deleteItem(@PathVariable Long id, @RequestHeader(value = AUTHORIZATION_HEADER, required = true) Optional<String> authentication) {
-        if (authentication.isPresent()) {
             String token = authentication.get().substring("Bearer".length()).trim();
             itemService.deleteItem(id, token);
-        } else {
-            throw new IllegalArgumentException("Chyba v autentifikácii");
-        }
     }
 }
