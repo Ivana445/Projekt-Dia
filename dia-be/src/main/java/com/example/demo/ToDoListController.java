@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -63,7 +64,15 @@ public class ToDoListController {
         }
     }
 
-
+    @GetMapping("/api/alltodolists")
+    public List<ToDoListDTO> getAllToDoLists(@RequestHeader(value = AUTHORIZATION_HEADER, required = true) Optional<String> authentication){
+        if (authentication.isPresent()) {
+            String token = authentication.get().substring("Bearer".length()).trim();
+            return toDoListService.getAllToDoList(token);
+        } else {
+            throw new IllegalArgumentException("Chyba v autentifikácii");
+        }
+    }
 
 
 }

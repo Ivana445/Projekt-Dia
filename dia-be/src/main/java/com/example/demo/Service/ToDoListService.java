@@ -10,12 +10,15 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.authentication.AuthenticationCredentialsNotFoundException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -48,11 +51,12 @@ public class ToDoListService {
             entity.setName(toDoListDTO.getName());
             entity.setDeadline(toDoListDTO.getDeadline());
             todoListRepository.save(entity);
-        }else {
+        } else {
             throw new IllegalArgumentException("neda sa");
         }
         return entity.getId();
     }
+
     @PreAuthorize("hasRole('ROLE_USER')")
     public ToDoListDTO getToDoListPodlaId(Long id, String token) {
 
@@ -94,7 +98,8 @@ public class ToDoListService {
             todoListRepository.delete(entity);
         }
     }
-    public void addUser(Long id, UserDTO userDTO, String token){
+
+    public void addUser(Long id, UserDTO userDTO, String token) {
         authenticationService.authenticate(token);
         Optional<UserEntity> userOptional = userRepository.findByEmail(userDTO.getEmail());
         ToDoListEntity toDoList = todoListRepository.findById(id).orElse(null);
@@ -105,7 +110,7 @@ public class ToDoListService {
             if (toDoList != null) {
                 toDoList.getUsers().add(user);
                 todoListRepository.save(toDoList);
-            }else {
+            } else {
                 throw new IllegalArgumentException("neda sa");
             }
         } else {
@@ -113,6 +118,22 @@ public class ToDoListService {
         }
     }
 
+
+    @PreAuthorize("hasRole('ROLE_USER')")
+    public List<ToDoListDTO> getAllToDoList(String token) {
+        Optional<TokenEntity> optionalToken = tokenRepository.findByToken(token);
+        UserEntity user = optionalToken.get().getUser();
+
+
+        List<ToDoListDTO> allLists = new ArrayList<>();
+
+        for (ToDoListEntity todoList : todoListRepository.findAll()) {
+
+        }
+
+
+        return allLists;
+    }
 
 
 }
