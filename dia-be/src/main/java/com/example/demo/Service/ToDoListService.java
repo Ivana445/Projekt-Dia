@@ -49,6 +49,13 @@ public class ToDoListService {
             entity.getUsers().add(user);
             entity.setName(toDoListDTO.getName());
             entity.setDeadline(toDoListDTO.getDeadline());
+            for (ItemDTO item: toDoListDTO.items ){
+                ItemEntity itementity = new ItemEntity();
+                itementity.setPopis(item.getPopis());
+                itementity.setName(item.getName());
+                itementity.setId(item.getId());
+                entity.getItems().add(itementity);
+            }
             todoListRepository.save(entity);
         }else {
             throw new IllegalArgumentException("neda sa");
@@ -129,6 +136,7 @@ public class ToDoListService {
             throw new IllegalArgumentException("Uživatel s tímto emailem nebyl nalezen.");
         }
     }
+
 
 
 
