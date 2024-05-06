@@ -4,7 +4,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Data //gettre settre to string...
 @NoArgsConstructor //konstruktor
@@ -14,7 +16,7 @@ public class ToDoListDTO {
     String name;
     Date deadline;
 
-    //ItemDTO items;
+    List<ItemDTO> items = new ArrayList<>();
 
 
     //Day notification

@@ -1,5 +1,6 @@
 package com.example.demo;
 
+import com.example.demo.Perzistent.ItemEntity;
 import com.example.demo.Security_core.Service2.AuthenticationService;
 import com.example.demo.Service.*;
 import org.springframework.beans.factory.annotation.Autowired;

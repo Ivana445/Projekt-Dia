@@ -69,7 +69,7 @@ public class ToDoListTests {
     @Test
     public void testPostToDoList() throws Exception {
         // Mock service method
-        when(toDoListService.postToDoList(any(), "token")).thenReturn(1L);
+        when(toDoListService.postToDoList(any(),"token")).thenReturn(1L);
 
         // Prepare DTO
         ToDoListDTO dto = new ToDoListDTO();
@@ -100,7 +100,7 @@ public class ToDoListTests {
     @Test
     public void testGetToDoListPodlaId() throws Exception{
         when(toDoListService.getToDoListPodlaId(any(), "token")).thenReturn(
-                new ToDoListDTO(1L, "moj to-do list", new Date())
+                new ToDoListDTO(1L, "moj to-do list", new Date(), any())
         );
 
         mockMvc.perform(

@@ -5,10 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Calendar;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @Data //gettre settre to string...
@@ -39,11 +36,12 @@ public class ToDoListEntity {
     //@ManyToOne
    // private CalendarEntity calendar; //CalendarEntity
 
-    @OneToMany(mappedBy="toDoListEntities")
-    private Set<ItemEntity> item; //ItemEntity
+    //@OneToMany(mappedBy="toDoListEntities")
+    //private Set<ItemEntity> item; //ItemEntity
 
-    //@OneToMany(mappedBy = "toDoList")
-    //private Set<ItemEntity> itemEntities;
+
+    @OneToMany(mappedBy = "toDoListEntities")
+    private List<ItemEntity> items = new LinkedList<ItemEntity>();
 
 
 }
