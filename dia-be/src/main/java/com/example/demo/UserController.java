@@ -37,14 +37,21 @@ public class UserController {
         return userService.GetRegistration(id);
     }
 
+
     @PostMapping("/api/login")
     public void PostLogin(@RequestHeader(value = "Authorization", required = false) Optional<String> authentication,
                             HttpServletResponse response){
+            String[] credentials = credentialsDecode(authentication.get());
+            String token = authenticationService.authenticate(credentials[0], credentials[1]);
+            response.setStatus(HttpStatus.OK.value());
+            response.addHeader("Authorization", "Bearer " + token);
+    }
 
-        String[] credentials = credentialsDecode(authentication.get());
-        String token = authenticationService.authenticate(credentials[0], credentials[1]);
-        response.setStatus(HttpStatus.OK.value());
-        response.addHeader("Authorization", "Bearer " + token);
+    public static String[] credentialsDecode(String authorization) {
+        String base64Credentials = authorization.substring("Basic".length()).trim();
+        byte[] credDecoded = Base64.getDecoder().decode(base64Credentials);
+        String credentials = new String(credDecoded, StandardCharsets.UTF_8);
+        return  credentials.split(":", 2);
     }
     @GetMapping("api/login/{id}")
     public UserDTO GetLogin(@PathVariable Long id /*@RequestHeader("Authorization") String token*/){

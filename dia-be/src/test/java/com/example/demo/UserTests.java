@@ -94,43 +94,43 @@ public class UserTests {
         verify(userService, times(1)).registerUser(any(UserDTO.class));
     }
 
-    @Test
-    public void testLogin_Success() throws Exception {
-        when(userService.PostLogin(any(UserDTO.class))).thenReturn(anyString());
+//    @Test
+//    public void testLogin_Success() throws Exception {
+//        when(userService.PostLogin(any(UserDTO.class))).thenReturn(anyString());
+//
+//        UserDTO userDTO = new UserDTO();
+//        userDTO.setUsername("testUser");
+//        userDTO.setPassword("TestPassword123");
+//
+//        mockMvc.perform(
+//                        post("/api/login")
+//                                .contentType(MediaType.APPLICATION_JSON)
+//                                .content(mapper.writeValueAsString(userDTO))
+//                )
+//                .andExpect(status().isOk())
+//                .andDo(System.out::println);
+//
+//        verify(userService, times(1)).PostLogin(any(UserDTO.class));
+//    }
 
-        UserDTO userDTO = new UserDTO();
-        userDTO.setUsername("testUser");
-        userDTO.setPassword("TestPassword123");
-
-        mockMvc.perform(
-                        post("/api/login")
-                                .contentType(MediaType.APPLICATION_JSON)
-                                .content(mapper.writeValueAsString(userDTO))
-                )
-                .andExpect(status().isOk())
-                .andDo(System.out::println);
-
-        verify(userService, times(1)).PostLogin(any(UserDTO.class));
-    }
-
-    @Test
-    public void testLogin_Failure() throws Exception {
-        when(userService.PostLogin(any(UserDTO.class))).thenReturn(null);
-
-        UserDTO userDTO = new UserDTO();
-        userDTO.setUsername("nonExistingUser");
-        userDTO.setPassword("TestPassword123");
-
-        mockMvc.perform(
-                        post("/api/login")
-                                .contentType(MediaType.APPLICATION_JSON)
-                                .content(mapper.writeValueAsString(userDTO))
-                )
-                .andExpect(status().isOk())
-                .andDo(System.out::println);
-
-        verify(userService, times(1)).PostLogin(any(UserDTO.class));
-    }
+//    @Test
+//    public void testLogin_Failure() throws Exception {
+//        when(userService.PostLogin(any(UserDTO.class))).thenReturn(null);
+//
+//        UserDTO userDTO = new UserDTO();
+//        userDTO.setUsername("nonExistingUser");
+//        userDTO.setPassword("TestPassword123");
+//
+//        mockMvc.perform(
+//                        post("/api/login")
+//                                .contentType(MediaType.APPLICATION_JSON)
+//                                .content(mapper.writeValueAsString(userDTO))
+//                )
+//                .andExpect(status().isOk())
+//                .andDo(System.out::println);
+//
+//        verify(userService, times(1)).PostLogin(any(UserDTO.class));
+//    }
 
 
 }

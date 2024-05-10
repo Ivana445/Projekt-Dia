@@ -126,8 +126,11 @@ public class ToDoListService {
             todoListRepository.delete(entity);
         }
     }
-    public void addUser(Long id, UserDTO userDTO, String token){
-        authenticationService.authenticate(token);
+    public void addUser(Long id, String email) {
+        UserDTO userDTO = new UserDTO();
+        userDTO.setEmail(email);
+        System.out.println("emailos " + userDTO.getEmail());
+        System.out.println("user repositoris " + userRepository.findByEmail(userDTO.getEmail()));
         Optional<UserEntity> userOptional = userRepository.findByEmail(userDTO.getEmail());
         ToDoListEntity toDoList = todoListRepository.findById(id).orElse(null);
         if (userOptional.isPresent()) {
@@ -136,13 +139,38 @@ public class ToDoListService {
             System.out.println("todio " + toDoList);
             if (toDoList != null) {
                 toDoList.getUsers().add(user);
+                System.out.println("user v tofdhhfh" +toDoList.getUsers());
                 todoListRepository.save(toDoList);
-            }else {
+            } else {
                 throw new IllegalArgumentException("neda sa");
             }
         } else {
             throw new IllegalArgumentException("Uživatel s tímto emailem nebyl nalezen.");
         }
+    }
+    public List<UserDTO> findAllUsers(Long id){
+        ToDoListEntity toDoList = todoListRepository.findById(id).orElse(null);
+        Set<UserEntity> userEntities = toDoList.getUsers();
+        System.out.println("users " +userEntities);
+        List<UserDTO> userDTOs = new ArrayList<>();
+        for (UserEntity entity : userEntities){
+            UserDTO userDTO = new UserDTO();
+            userDTO.setUsername(entity.getUsername());
+            userDTO.setEmail(entity.getEmail());
+            userDTOs.add(userDTO);
+        }
+        return userDTOs;
+
+    }
+    public void deleteUserFromTodolist(Long id, String email){
+        UserDTO userDTO = new UserDTO();
+        userDTO.setEmail(email);
+        ToDoListEntity toDoList = todoListRepository.findById(id).orElse(null);
+        System.out.println("todolist" + toDoList);
+        toDoList.getUsers().remove(userDTO);
+
+
+
     }
 
 
