@@ -2,6 +2,7 @@ import {inject, Injectable} from "@angular/core";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {ListModel} from "../models/list.model";
+import {UserModel} from "../models/user.model";
 
 @Injectable({
     providedIn: 'root'
@@ -11,37 +12,25 @@ export class ListService{
     http = inject(HttpClient)
     apiUrl = 'http://localhost:8080/api'
 
-    getList(id: number, token: string): Observable<any> {
-        const headers = new HttpHeaders({
-            'Authorization': `Bearer ${token}`
-        });
-
-        return this.http.get<any>(`${this.apiUrl}/todolist/${id}`, { headers });
+    getList(id: number): Observable<any> {
+        return this.http.get<any>(`${this.apiUrl}/todolist/${id}`);
     }
 
-    postList(listModule: ListModel, token: string):Observable<any>{
-        const headers = new HttpHeaders({
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`
-        });
-
-        return this.http.post<any>(`${this.apiUrl}/todolist`, listModule, { headers });
+    postList(listModule: ListModel):Observable<any>{
+        return this.http.post<any>(`${this.apiUrl}/todolist`, listModule);
     }
 
-    putList(listModule: ListModel, token: string): Observable<void> {
-        const headers = new HttpHeaders({
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`
-        });
-
-        return this.http.put<void>(`${this.apiUrl}/todolist/${listModule.id}`, listModule, { headers });
+    putList(listModule: ListModel): Observable<void> {
+        return this.http.put<void>(`${this.apiUrl}/todolist/${listModule.id}`, listModule);
     }
-    deleteList(id: number, token: string): Observable<void> {
-        const headers = new HttpHeaders({
-            'Authorization': `Bearer ${token}`
-        });
-
-        return this.http.delete<void>(`${this.apiUrl}/todolist/${id}`, { headers });
+    addUser(currentUser :UserModel,addedUser: string):Observable<any>{
+        return this.http.put<any>(`${this.apiUrl}/todolist/change/${currentUser.id}`, addedUser)
+    }
+    deleteList(id: number): Observable<void> {
+        return this.http.delete<void>(`${this.apiUrl}/todolist/${id}`);
+    }
+    getAllLists():Observable<any>{
+        return this.http.get<any>(`${this.apiUrl}/todolist/all`)
     }
 
 

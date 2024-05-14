@@ -1,16 +1,14 @@
 <div class="title">
-    <input type="text" [(ngModel)]="newListName" placeholder="New To Do list" (keyup.enter)="updateListName()" >
+    <input type="text" [(ngModel)]="newListName" placeholder="New To Do list" >
     <!--<p class="font-white">New TO-DO list</p>-->
-    <span class="pi pi-trash" style="font-size: 2.5rem; color: #9fa9b7" (click)="deleteList()"></span>
 </div>
 <div class="content">
     <div class="items">
         <div>
-            <app-item *ngFor="let item of items">
-                {{item.name}}
+            <app-item *ngFor="let item of items, let i = index" [name]="item.name" (click)="deleteItemFromArray(i)">
             </app-item>
         </div>
-        <input type="text" [(ngModel)]="newItemName" (keyup.enter)="addItem()">
+        <input type="text" [(ngModel)]="newItemName" (keyup.enter)="addItemToArray()">
     </div>
     <div class="notification bg-secondary-light">
         <div class="setup">
@@ -22,11 +20,19 @@
             </div>
         </div>
         <div class="setup">
-            <button type="submit" (click)="addList()">Add list</button>
+            <p><b>List share with:</b></p>
+            <p *ngFor="let share of listOfShare, let i = index" >{{share}} <span class="pi pi-trash" (click)="deleteShare(i)"></span> </p>
         </div>
         <div class="sharing">
-            <span class="pi pi-user-plus"></span>
-            <p>Share list</p>
+            <p-overlayPanel #op>
+                <ng-template pTemplate="content">
+                    <input type="email" [(ngModel)]="share" placeholder="Enter e-mail" (keyup.enter)="shareList(share)">
+                </ng-template>
+            </p-overlayPanel>
+            <p-button styleClass="p-button-help" (click)="op.toggle($event)" icon="pi pi-user-plus" label="Share" [raised]="true" ></p-button>
+        </div>
+        <div class="setup">
+            <button type="submit" (click)="addList()">Add list</button>
         </div>
     </div>
 </div>
