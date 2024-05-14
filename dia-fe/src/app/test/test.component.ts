@@ -17,15 +17,9 @@ export class TestComponent {
   calendarOptions: CalendarOptions = {
     plugins: [dayGridPlugin],
     initialView: 'dayGridMonth',
-    weekends: false,
     events: [
-      { title: 'Meeting', start: '2024-04-04T12:30:00-05:00' }
+      { title: 'Meeting', start: '2024-05-04' }
     ]
   };
-  navigationService = inject(NavigationService)
-
-  toggleNavbar() {
-    this.navigationService.toggleNavbar()
-  }
 
 }
