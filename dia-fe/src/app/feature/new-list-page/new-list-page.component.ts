@@ -40,7 +40,7 @@ export class NewListPageComponent implements OnInit{
   newItemName: string = '';
 
   newListName: string = '';
-  newList: ListModel = { name: '', deadLine: undefined};
+  newList: ListModel = { name: '', deadline: undefined};
 
 
   token = this.loginService.getToken();
@@ -55,7 +55,7 @@ export class NewListPageComponent implements OnInit{
       const newItem :ItemModel = {name: this.newItemName};
       console.log(newItem)
       if (this.token != null) {
-        this.itemService.postItem(this.newList, newItem, this.token).subscribe(() => {
+        this.itemService.postItem(this.newList, newItem).subscribe(() => {
           this.newItemName = '';
         })
       }
@@ -71,7 +71,7 @@ export class NewListPageComponent implements OnInit{
     if (this.newListName.trim() && this.deadline.controls.date.value) {
       // Predpokladám, že token je uložený v nejakej premennej token
       this.newList.name = this.newListName;
-      this.newList.deadLine = this.deadline.controls.date.value
+      this.newList.deadline = this.deadline.controls.date.value
       console.log(this.newList)
       console.log(this.token , 'token pri pridani listu')
       if (this.token !== null) {

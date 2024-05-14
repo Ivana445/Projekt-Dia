@@ -13,35 +13,21 @@ export class ItemService{
     apiUrl = 'http://localhost:8080/api'
 
 
-    postItem(list: ListModel, item: ItemModel, token: string):Observable<any>{
-        const headers = new HttpHeaders({
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`
-        });
-        return this.http.post<any>(`${this.apiUrl}/todolist/${list.id}/items`, item,{headers})
+    postItem(list: ListModel, item: ItemModel):Observable<any>{
+        return this.http.post<any>(`${this.apiUrl}/todolist/${list.id}/items`, item)
     }
 
 
-    getItem(item: ItemModel, token: string):Observable<any>{
-        const headers = new HttpHeaders({
-            'Authorization': `Bearer ${token}`
-        });
-        return this.http.get<any>(`${this.apiUrl}/item/${item.id}`, {headers})
+    getItem(item: ItemModel):Observable<any>{
+        return this.http.get<any>(`${this.apiUrl}/item/${item.id}`)
     }
 
-    putItem(item: ItemModel, token : string):Observable<any>{
-        const headers = new HttpHeaders({
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`
-        });
-        return this.http.put<string>(`${this.apiUrl}/item/${item.id}`, item, {headers})
+    putItem(item: ItemModel):Observable<any>{
+        return this.http.put<string>(`${this.apiUrl}/item/${item.id}`, item)
     }
 
-    deleteItem(item: ItemModel, token: string):Observable<any>{
-        const headers = new HttpHeaders({
-            'Authorization': `Bearer ${token}`
-        });
-        return this.http.delete<any>(`${this.apiUrl}/item/${item.id}`, {headers})
+    deleteItem(item: ItemModel):Observable<any>{
+        return this.http.delete<any>(`${this.apiUrl}/item/${item.id}`)
     }
 
 }

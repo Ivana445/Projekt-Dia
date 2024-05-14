@@ -21,17 +21,17 @@ export class LoginService{
 
     newlogin(username: string , password: string): Observable<any>{
 
-        const loginData: UserModel = {email: "", username,password}
+        //const loginData: UserModel = {email: "", username,password}
 
         const headers = new HttpHeaders({
             'Content-Type': 'application/json',
             'Authorization': 'Basic ' + btoa(username +':'+ password)
         });
         return this.http.post<any>(this.apiUrlAuth, null, {headers, observe: 'response'}).pipe(
-            tap((response: HttpResponse<any>) => {
-                    this.setToken(response.headers.get("Authorization"));
-                    this.setUser(loginData)
-                }
+            tap((response: HttpResponse<any>) => this.setToken(response.headers.get("Authorization")),
+                switchMap((user: HttpResponse<any>) => this.http.get<any>(this.apiUrlAuth).pipe(
+                        tap((user: UserModel) => this.setUser(user)))
+                )
             )
         )
     }

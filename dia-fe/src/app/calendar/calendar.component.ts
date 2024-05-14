@@ -20,10 +20,10 @@ export class CalendarComponent{
   date: Date | undefined;
 
 
-    lists: any[] = [
-        { name: 'List 1', deadline: '2024-04-20' },
-        { name: 'List 2', deadline: '2024-04-22' },
-        { name: 'List 3', deadline: '2024-04-25' }]
+    // lists: any[] = [
+    //     { name: 'List 1', deadline: '2024-04-20' },
+    //     { name: 'List 2', deadline: '2024-04-22' },
+    //     { name: 'List 3', deadline: '2024-04-25' }]
     //selectedDate: Date; // proměnná pro uložení vybraného data v kalendáři
     /*lists: any[] = [
         { name: 'List 1', deadline: '2024-04-20' },

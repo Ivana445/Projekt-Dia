@@ -3,6 +3,7 @@ import {NavigationService} from "../../services/client/navigation.service";
 import {FullCalendarModule} from "@fullcalendar/angular";
 import { CalendarOptions } from '@fullcalendar/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
+import interactionPlugin from '@fullcalendar/interaction';
 
 @Component({
   selector: 'app-test',
@@ -14,18 +15,18 @@ import dayGridPlugin from '@fullcalendar/daygrid';
   styleUrl: './test.component.scss'
 })
 export class TestComponent {
+  // premenna dedadline a name aby  vsetky listy nacitalo do kalendara
   calendarOptions: CalendarOptions = {
-    plugins: [dayGridPlugin],
     initialView: 'dayGridMonth',
-    weekends: false,
+    plugins: [dayGridPlugin, interactionPlugin],
+    dateClick: (arg) => this.handleDateClick({arg: arg}),
     events: [
-      { title: 'Meeting', start: '2024-04-04T12:30:00-05:00' }
+      { title: 'event 1', date: '2024-05-01' }
     ]
   };
-  navigationService = inject(NavigationService)
 
-  toggleNavbar() {
-    this.navigationService.toggleNavbar()
+  handleDateClick({arg}: { arg: any }) {
+    alert('date click! ' + arg.dateStr)
   }
 
 }

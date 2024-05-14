@@ -7,6 +7,7 @@ import {ProgressCircleComponent} from "../../progress-circle/progress-circle.com
 import {NgForOf} from "@angular/common";
 import {CalendarComponent} from "../../calendar/calendar.component";
 import {ListService} from "../../../services/list.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-home-page',
@@ -24,7 +25,7 @@ import {ListService} from "../../../services/list.service";
 })
 export class HomePageComponent implements OnInit{
 
-  constructor() {
+  constructor(private router: Router) {
   }
 
   private readonly listService = ListService
@@ -41,6 +42,13 @@ export class HomePageComponent implements OnInit{
     //this.listService.getList()
   }
 
+  goToVotes($myParam: string = ''): void {
+    const navigationDetails: string[] = ['feature/'];
+    if($myParam.length) {
+      navigationDetails.push($myParam);
+    }
+    this.router.navigate(navigationDetails);
+  }
 
   percentage: string= '100%'
 }
