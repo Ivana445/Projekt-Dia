@@ -13,6 +13,7 @@ import {LoginService} from "../../../services/client/login.service";
 import {CheckboxModule} from "primeng/checkbox";
 import {OverlayPanelModule} from "primeng/overlaypanel";
 import {ButtonModule} from "primeng/button";
+import {Router} from "@angular/router";
 
 
 @Component({
@@ -37,6 +38,7 @@ export class NewListPageComponent implements OnInit{
   private readonly itemService = inject(ItemService);
   private readonly listService = inject(ListService);
   private readonly loginService = inject(LoginService);
+  private readonly router = inject(Router);
 
 
 
@@ -96,10 +98,10 @@ export class NewListPageComponent implements OnInit{
     //     // Tu použiť deleteItem na ďalšie manipulácie s daným prvkom
     //   });
     // });
-    // if (this.deleteItemByTrash.click){
-    //   console.log(this.deleteItemByTrash.click, 'ci je to dobre')
-    //   this.items.splice(index, 1);
-    // }
+    if (this.deleteItemByTrash.click){
+      console.log(this.deleteItemByTrash.click, 'ci je to dobre')
+      this.items.splice(index, 1);
+    }
 
   }
 
@@ -131,6 +133,7 @@ export class NewListPageComponent implements OnInit{
               this.newListName = '';
               this.items = [];
               this.listOfShare = [];
+              this.router.navigate(['feature/list-page']);
               //spravit prepojenie na list, ktory sme vytvorili
             },
             error: (err) =>{

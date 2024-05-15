@@ -1,11 +1,11 @@
 <div class="title">
     <input type="text" [(ngModel)]="newListName" placeholder="New To Do list" >
-    <!--<p class="font-white">New TO-DO list</p>-->
+    <span class="pi pi-trash"></span>
 </div>
 <div class="content">
     <div class="items">
         <div>
-            <app-item *ngFor="let item of items, let i = index" [name]="item.name" (click)="deleteItemFromArray(i)">
+            <app-item *ngFor="let item of items, let i = index" [itemname]="item.name" (click)="deleteItemFromArray(i)">
             </app-item>
         </div>
         <input type="text" [(ngModel)]="newItemName" (keyup.enter)="addItemToArray()">
@@ -21,7 +21,7 @@
         </div>
         <div class="setup">
             <p><b>List share with:</b></p>
-            <p *ngFor="let share of listOfShare, let i = index" >{{share}} <span class="pi pi-trash" (click)="deleteShare(i)"></span> </p>
+            <p *ngFor="let share of listOfShare, let i = index">{{share}}<span class="pi pi-trash" (click)="deleteShare(i)"></span></p>
         </div>
         <div class="sharing">
             <p-overlayPanel #op>

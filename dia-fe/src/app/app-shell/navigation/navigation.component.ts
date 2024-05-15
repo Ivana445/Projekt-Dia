@@ -1,10 +1,12 @@
-import {Component, inject} from '@angular/core';
+import {Component, inject, OnInit} from '@angular/core';
 import {NavigationModel} from "../../../models/navigation.model";
 import {NavItemComponent} from "./nav-item/nav-item.component";
 import {Router, RouterLink} from "@angular/router";
 import {NgForOf} from "@angular/common";
 import {LoginService} from "../../../services/client/login.service";
 import {FormsModule} from "@angular/forms";
+import {ListModel} from "../../../models/list.model";
+import {ListService} from "../../../services/list.service";
 
 @Component({
   selector: 'app-navigation',
@@ -13,12 +15,12 @@ import {FormsModule} from "@angular/forms";
   templateUrl: './navigation.component.html',
   styleUrl: './navigation.component.scss'
 })
-export class NavigationComponent {
+export class NavigationComponent implements OnInit{
 
   private readonly router = inject(Router)
 
 
-  constructor(private loginService: LoginService) {
+  constructor(private loginService: LoginService, private listService: ListService) {
   }
 
   protected nav: NavigationModel[] = [{
@@ -40,7 +42,7 @@ export class NavigationComponent {
     nazov: 'Profile',
   }]
   protected tasks: NavigationModel[] = [{
-    routerLink: 'feature/new-list-page',
+    routerLink: 'feature/list-page',
     nazov: 'My TO DO list',
   }]
 
@@ -51,6 +53,17 @@ export class NavigationComponent {
     this.loginService.logout().subscribe({
       next: () => this.router.navigate(['login'])
     });
+  }
+
+  allLists: ListModel[] = [];
+  getAllToDoLists(){
+    this.listService.getAllLists().subscribe((lists: ListModel[]) =>{
+      this.allLists = lists;
+    })
+    console.log(this.allLists);
+  }
+  ngOnInit(): void {
+    this.getAllToDoLists();
   }
 
 }

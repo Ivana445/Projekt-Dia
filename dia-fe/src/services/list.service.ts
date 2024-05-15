@@ -29,8 +29,8 @@ export class ListService{
     deleteList(id: number): Observable<void> {
         return this.http.delete<void>(`${this.apiUrl}/todolist/${id}`);
     }
-    getAllLists():Observable<any>{
-        return this.http.get<any>(`${this.apiUrl}/todolist/all`)
+    getAllLists():Observable<ListModel[]>{
+        return this.http.get<ListModel[]>(`${this.apiUrl}/todolist/all`)
     }
 
 

@@ -6,6 +6,7 @@ import {CalendarPageComponent} from "./feature/calendar-page/calendar-page.compo
 import {NewListPageComponent} from "./feature/new-list-page/new-list-page.component";
 import {ProfilePageComponent} from "./feature/profile-page/profile-page.component";
 import {LoginComponent} from "./login/login.component";
+import {ListPageComponent} from "./feature/list-page/list-page.component";
 
 
 export const routes: Routes = [
@@ -24,6 +25,10 @@ export const routes: Routes = [
   {
     path: 'feature/new-list-page',
     component: NewListPageComponent
+  },
+  {
+    path: 'feature/list-page',
+    component: ListPageComponent
   },
   {
     path: 'feature/profile-page',

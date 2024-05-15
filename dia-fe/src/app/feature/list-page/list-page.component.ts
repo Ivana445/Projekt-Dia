@@ -12,6 +12,8 @@ import {ListService} from "../../../services/list.service";
 import {LoginService} from "../../../services/client/login.service";
 import {ListModel} from "../../../models/list.model";
 import {ItemModel} from "../../../models/item.module";
+import {ShareComponent} from "../../share/share.component";
+import {error} from "@angular/compiler-cli/src/transformers/util";
 
 @Component({
   selector: 'app-list-page',
@@ -24,20 +26,17 @@ import {ItemModel} from "../../../models/item.module";
         OverlayPanelModule,
         PaginatorModule,
         ReactiveFormsModule,
-        SharedModule
+        SharedModule,
+        ShareComponent
     ],
   templateUrl: './list-page.component.html',
   styleUrl: './list-page.component.scss'
 })
 export class ListPageComponent implements OnInit{
 
-    private readonly itemService = inject(ItemService);
     private readonly listService = inject(ListService);
     private readonly loginService = inject(LoginService);
-
-
-
-    token = this.loginService.getToken();
+    private readonly itemService = inject(ItemService);
 
     constructor() {
         //console.log('zakliknute itemy',this.deleteItemByTrash.checked)
@@ -58,13 +57,14 @@ export class ListPageComponent implements OnInit{
     //premenne items
     selectedItems: any[] = [];
 
-    //items: ItemModel[] = []
+
     newItemName: string = '';
+    item: ItemModel = {name: "", popis: ""};
     items: ItemModel[] = [
-        { name: 'Accounting', popis: 'popis' },
-        { name: 'Marketing', popis: 'druhy popis' },
-        { name: 'Production', popis: 'treti popis' },
-        { name: 'Research', popis: 'stvrty popis' }
+        // { name: 'Accounting', popis: 'popis' },
+        // { name: 'Marketing', popis: 'druhy popis' },
+        // { name: 'Production', popis: 'treti popis' },
+        // { name: 'Research', popis: 'stvrty popis' }
     ];
 
     deleteItemByTrash = new ItemComponent();
@@ -74,71 +74,35 @@ export class ListPageComponent implements OnInit{
     listOfShare = ['user@gmail.com'];
 
 
-    //CREATE NEW TO DO LIST
+    //UPDATE TO DO LIST
     //////////////////////////
-    // ked nie je pridany list tak sa itemy zatial ulozia do pola
-    addItemToArray(){
-        let newItem :ItemModel = {name: this.newItemName};
-        this.items.push(<ItemModel>newItem);
-        this.newItemName = ''
-    }
-    //vymazanie z docasneho pola
-    deleteItemFromArray(index: number){
-        // const allItems = document.querySelectorAll('.app-item');
-        // console.log(allItems);
-        // allItems.forEach(item => {
-        //   item.addEventListener('click', (event) => {
-        //     const deleteItem = event.target;
-        //     console.log('delete item', deleteItem);
-        //     // Tu použiť deleteItem na ďalšie manipulácie s daným prvkom
-        //   });
-        // });
-        // if (this.deleteItemByTrash.click){
-        //   console.log(this.deleteItemByTrash.click, 'ci je to dobre')
-        //   this.items.splice(index, 1);
-        // }
 
+    updateList(){
+        this.newList.name = this.newListName;
+        this.newList.deadline = this.deadline.controls.date.value;
+        this.listService.putList(this.newList).subscribe(() => {
+            console.log('upravil som list');
+        })
     }
-
-    /*addItemToDatabase(newList: ListModel){
-      if (this.items != null) { // Kontrola, ci nová položka nie je prázdna
-        if (this.token != null) { //Kontrola ci je uzivatel prihlaseny
-          for (let i = 0; i < this.items.length; i++){ // prejst cely zoznam a pridat kazdu polozku ako item
-            this.itemService.postItem(newList, this.items[i], this.token).subscribe(() => {
-              console.log('pridal som item s indexom', i);
-              //po pridani do databazy sa vymaze pole
-              this.items = []
+    deleteList(){
+        if (this.newList.id != null) {
+            this.listService.deleteList(this.newList.id).subscribe(() => {
+                console.log('vymazal som list');
             })
-          }
-        }
-      }
-    }*/
-
-    addList() {
-        if (this.newListName.trim() && this.deadline.controls.date.value) {
-            // Predpokladám, že token je
-            this.newList.name = this.newListName;
-            this.newList.deadline = this.deadline.controls.date.value
-            this.newList.items = this.items//spojenie do modelu
-            this.newList.share = this.listOfShare
-            console.log(this.newList)
-            this.listService.postList(this.newList).subscribe({
-                    next: () => {
-                        console.log('pridal som list');
-                        this.newListName = '';
-                        this.items = [];
-                        this.listOfShare = [];
-                        //spravit prepojenie na list, ktory sme vytvorili
-                    },
-                    error: (err) =>{
-                        console.error('chyba pri pridani listu', err);
-                    }
-                }
-
-            );
         }
     }
 
+    addItem(){
+        this.item.name = this.newItemName;
+        this.itemService.postItem(this.newList, this.item).subscribe(() =>{
+            console.log('pridal som item');
+        })
+    }
+    deleteItem(){
+        this.itemService.deleteItem(this.item).subscribe(() => {
+            console.log('vymazal som item');
+        })
+    }
 
     //ZDIELANIE LISTU
     //////////////////////////
@@ -146,7 +110,7 @@ export class ListPageComponent implements OnInit{
     shareList(email: string){
         console.log('zdielam', email );
         this.listOfShare.push(this.share);
-        this.share = ''
+        this.share = '';
     }
 
     // addShareListToDatabase(){

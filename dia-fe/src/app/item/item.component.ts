@@ -13,22 +13,22 @@ export class ItemComponent implements OnInit{
 
   private readonly itemService = inject(ItemService)
 
-  item :{ name: string }[]
-  constructor() {
-    this.item = [{
-      name: 'nieco'
-    }]
-  }
-
   @Input()
-  name=''
+  itemname: string = "";
+
+  click = false;
+
+  constructor() {
+  }
 
   getItem(){
     //this.itemService.getItem()
   }
 
   deleteItem(){
-    console.log('vymazany item')
+    console.log('vymazany item');
+    this.click = true;
+    console.log(this.click)
     //this.itemService.deleteItem()
   }
   ngOnInit() {
