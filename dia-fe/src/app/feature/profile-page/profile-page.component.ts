@@ -21,13 +21,21 @@ export class ProfilePageComponent {
   private readonly userService = inject(UserService)
 
   user: UserModel | null;
+  password: string = '';
 
   constructor() {
     this.user = this.loginService.getUser()
   }
 
-  udpateUsername(){
-    //this.userService.changePassword(this.user)
+  udpatePassword(){
+    if (this.user) {
+      this.user.password = this.password;
+      this.userService.changePassword(this.user).subscribe(() => {
+        console.log('heslo zmenene')
+      })
+    }
   }
+
+
 
 }

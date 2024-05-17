@@ -145,6 +145,13 @@ export class NewListPageComponent implements OnInit{
     }
   }
 
+  deleteList(){
+    if (this.newList.id != null) {
+      this.listService.deleteList(this.newList.id).subscribe(() => {
+        console.log('vymazal som list');
+      })
+    }
+  }
 
   //ZDIELANIE LISTU
   //////////////////////////

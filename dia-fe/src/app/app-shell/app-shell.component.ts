@@ -28,9 +28,15 @@ export class AppShellComponent {
   @Input()
   sidebarWidth = '100'
 
+  show: boolean = false;
+
 
   constructor() {
     this.navigationService.navbarOpen$.subscribe(open => this.isNavbarOpen = true);
+    this.show = this.auth().isLogged();
+    if (this.show){
+      //todo ukaz menu ak je uzivatel prihlaseny
+    }
   }
 
   auth(): LoginService {

@@ -6,21 +6,25 @@
     </div>
     <p>Password</p>
     <div class="userpwd">
-        {{user?.password}}
+        <input type="text" value="{{user?.password}}" style="text-align: right" (keyup.enter)="udpatePassword()">
     </div>
-    <p>E-mail</p>
-    <div class="usermail">
-        {{user?.email}}
-    </div>
+    <button class="bg-secondary-light save-pwd" (submit)="udpatePassword()">Save password</button>
+<!--    <p>E-mail</p>-->
+<!--    <div class="usermail">-->
+<!--        {{user?.email}}-->
+<!--    </div>-->
 </div>
 <div class="color-theme">
     <p> Color theme</p>
     <div class="color-theme-bg">
-        <app-progress-circle></app-progress-circle>
-        <app-progress-circle></app-progress-circle>
-        <app-progress-circle></app-progress-circle>
-        <app-progress-circle></app-progress-circle>
-        <app-progress-circle></app-progress-circle>
-        <app-progress-circle></app-progress-circle>
+        <div><button class="color-circle" style="background: #2749C4">s </button></div>
+        <div><button class="color-circle" style="background: #6787F9">s </button></div>
+        <div><button class="color-circle" style="background: #C184FE">s </button></div>
+        <div><button class="color-circle" style="background: #F89DF4">s </button></div>
+        <div><button class="color-circle" style="background: #FEB084">s </button></div>
+        <div><button class="color-circle" style="background: #FFDB1C">s </button></div>
+        <div><button class="color-circle" style="background: #BDE49F">s </button></div>
+        <div><button class="color-circle" style="background: #A1E9CF">s </button></div>
+
     </div>
 </div>

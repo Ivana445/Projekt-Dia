@@ -5,7 +5,7 @@ import {DividerModule} from "primeng/divider";
 import {PasswordModule} from "primeng/password";
 import {ButtonModule} from "primeng/button";
 import {Router, RouterLink} from "@angular/router";
-import {NgIf} from "@angular/common";
+import {NgIf, NgOptimizedImage} from "@angular/common";
 import {LoginService} from "../../services/client/login.service";
 import {HttpClientModule} from "@angular/common/http";
 
@@ -23,7 +23,8 @@ import {HttpClientModule} from "@angular/common/http";
         RouterLink,
         NgIf,
         HttpClientModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        NgOptimizedImage
     ],
     templateUrl: './login.component.html',
     styleUrl: './login.component.scss'

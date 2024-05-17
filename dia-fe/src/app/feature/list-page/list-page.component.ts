@@ -73,6 +73,18 @@ export class ListPageComponent implements OnInit{
     share:string = '';
     listOfShare = ['user@gmail.com'];
 
+    //GET DATA
+    //////////////////////////
+    getItems(){
+        //todo ako vybrat item z databazy?, pravdepodobne to pojde len pomocou id listu - prerobit backend
+
+        // this.itemService.getItem(/*neviem poslat item ktory chcem ziskat*/this.newList).subscribe( (itemFromDB: ItemModel[]) =>{
+        //     this.items = itemFromDB;
+        // })
+    }
+    getShare(){
+        //todo spracovat odpoved z backendu
+    }
 
     //UPDATE TO DO LIST
     //////////////////////////

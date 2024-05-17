@@ -6,6 +6,55 @@ $theme-colors: (
         col-white: #FFF,
         col-black: #0c0c0c
 );
+$theme-colors1: (
+        primary: #E2DEE5,
+        secondary: #2749C4,
+        secondary-light: #2749C480,
+        col-white: #FFF,
+        col-black: #0c0c0c
+);
+$theme-colors2: (
+        primary: #E2DEE5,
+        secondary: #6787F9,
+        secondary-light: #6787F980,
+        col-white: #FFF,
+        col-black: #0c0c0c
+);
+$theme-colors3: (
+        primary: #E2DEE5,
+        secondary: #F89DF4,
+        secondary-light: #F89DF480,
+        col-white: #FFF,
+        col-black: #0c0c0c
+);
+$theme-colors4: (
+        primary: #E2DEE5,
+        secondary: #FEB084,
+        secondary-light: #FEB08480,
+        col-white: #FFF,
+        col-black: #0c0c0c
+);
+$theme-colors5: (
+        primary: #E2DEE5,
+        secondary: #FFDB1C,
+        secondary-light: #FFDB1C80,
+        col-white: #FFF,
+        col-black: #0c0c0c
+);
+$theme-colors6: (
+        primary: #E2DEE5,
+        secondary: #BDE49F,
+        secondary-light: #BDE49F80,
+        col-white: #FFF,
+        col-black: #0c0c0c
+);
+$theme-colors7: (
+        primary: #E2DEE5,
+        secondary: #A1E9CF,
+        secondary-light: #A1E9CF80,
+        col-white: #FFF,
+        col-black: #0c0c0c
+);
 
 @mixin generate-color-classes {
   @each $color-name, $color-value in $theme-colors {
@@ -22,3 +71,4 @@ $theme-colors: (
 }
 
 @include generate-color-classes
+
