@@ -34,6 +34,9 @@ public class ToDoListService {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private ItemRepository itemRepository;
     @Autowired
     private TokenRepository tokenRepository;
 
@@ -53,7 +56,7 @@ public class ToDoListService {
                 ItemEntity itementity = new ItemEntity();
                 itementity.setPopis(item.getPopis());
                 itementity.setName(item.getName());
-                itementity.setId(item.getId());
+                itementity.setToDoListEntities(entity);
                 entity.getItems().add(itementity);
             }
             todoListRepository.save(entity);
@@ -78,10 +81,13 @@ public class ToDoListService {
     @PreAuthorize("hasRole('ROLE_USER')")
     public List<ToDoListDTO> getAllToDoLists(String token) {
         Optional<TokenEntity> optionalToken = tokenRepository.findByToken(token);
-        UserEntity user = optionalToken.get().getUser();
 
+        UserEntity user = optionalToken.get().getUser();
         List<ToDoListDTO> toDoListDTOs = new ArrayList<>();
-        for (ToDoListEntity toDoListEntity : user.getTodoLists()) {
+
+        Set<ToDoListEntity> toDoListEntities = todoListRepository.findByUsersId(user.getId());
+
+        for (ToDoListEntity toDoListEntity : toDoListEntities) {
             ToDoListDTO toDoListDTO = new ToDoListDTO();
             toDoListDTO.setId(toDoListEntity.getId());
             toDoListDTO.setName(toDoListEntity.getName());
@@ -89,6 +95,7 @@ public class ToDoListService {
             toDoListDTOs.add(toDoListDTO);
         }
         return toDoListDTOs;
+
     }
 
 
