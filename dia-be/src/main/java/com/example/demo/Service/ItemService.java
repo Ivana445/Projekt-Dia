@@ -62,8 +62,6 @@ public class ItemService {
         }
         List<ItemDTO> itemDTOS = new ArrayList<>();
 
-        //Optional<ToDoListEntity> toDoListEntity = todoListRepository.findById(toDoListId);
-
         Set<ItemEntity> itemEntities = itemRepository.findByToDoListEntitiesId(toDoListId);
 
         for (ItemEntity itemEntity : itemEntities) {
