@@ -66,6 +66,7 @@ public class ItemService {
 
         for (ItemEntity itemEntity : itemEntities) {
             ItemDTO itemDTO = new ItemDTO();
+            itemDTO.setId(itemEntity.getId());
             itemDTO.setName(itemEntity.getName());
             itemDTO.setPopis(itemEntity.getPopis());
             itemDTOS.add(itemDTO);
