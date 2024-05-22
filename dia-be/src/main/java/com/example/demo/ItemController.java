@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -30,6 +31,12 @@ public class ItemController {
     public ItemDTO getItemById(@PathVariable Long id, @RequestHeader(value = AUTHORIZATION_HEADER, required = true) Optional<String> authentication) {
             String token = authentication.get().substring("Bearer".length()).trim();
             return itemService.getItemById(id, token);
+    }
+
+    @GetMapping("/api/items/{id}")
+    public List<ItemDTO> getItemsByToDoList(@PathVariable Long id, @RequestHeader(value = AUTHORIZATION_HEADER, required = true) Optional<String> authentication) {
+        String token = authentication.get().substring("Bearer".length()).trim();
+        return itemService.getItemsByToDoList(id, token);
     }
 
     @PutMapping("/api/item/{id}")
