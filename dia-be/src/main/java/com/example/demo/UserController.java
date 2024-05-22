@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.nio.charset.StandardCharsets;
 import java.util.Base64;
+import java.util.List;
 import java.util.Optional;
 
 import static com.example.demo.Security_core.Controller.AuthenticationController.credentialsDecode;
@@ -78,6 +79,12 @@ public class UserController {
         }else {
             throw new IllegalArgumentException("neda sa");
         }
+    }
+
+    @GetMapping("api/shared/{id}")
+    public List<UserDTO> getSharedUsers(@PathVariable Long id, @RequestHeader(value = AUTHORIZATION_HEADER, required = true) Optional<String> authentication){
+        String token = authentication.get().substring("Bearer".length()).trim();
+        return userService.getSharedUsers(id, token);
     }
 
 

@@ -65,6 +65,7 @@ public class ToDoListService {
         }
         return entity.getId();
     }
+
     @PreAuthorize("hasRole('ROLE_USER')")
     public ToDoListDTO getToDoListPodlaId(Long id, String token) {
         ToDoListEntity entity = todoListRepository.findById(id).orElse(null);

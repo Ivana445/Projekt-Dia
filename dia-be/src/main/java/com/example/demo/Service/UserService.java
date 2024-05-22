@@ -169,4 +169,18 @@ public class UserService{
         }
     }
 
+    @PreAuthorize("hasRole('ROLE_USER')")
+    public List<UserDTO> getSharedUsers(Long toDoListId, String token){
+        authenticationService.authenticate(token);
+
+        List<UserDTO> userDTOs = new ArrayList<>();
+        Set<UserEntity> userEntities = userRepository.findByTodoListsId(toDoListId);
+        for (UserEntity userEntity : userEntities){
+            UserDTO userDTO = new UserDTO();
+            userDTO.setEmail(userEntity.getEmail());
+            userDTOs.add(userDTO);
+        }
+
+        return userDTOs;
+    }
 }
