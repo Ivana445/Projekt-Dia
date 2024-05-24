@@ -40,7 +40,7 @@ public class ToDoListEntity {
     //private Set<ItemEntity> item; //ItemEntity
 
 
-    @OneToMany(mappedBy = "toDoListEntities")
+    @OneToMany(mappedBy = "toDoListEntities", cascade = CascadeType.ALL)
     private List<ItemEntity> items = new LinkedList<ItemEntity>();
 
 

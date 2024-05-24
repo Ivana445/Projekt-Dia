@@ -15,6 +15,7 @@ public class ToDoListDTO {
     Long id;
     String name;
     Date deadline;
+    List<UserDTO> users = new ArrayList<>();
 
     List<ItemDTO> items = new ArrayList<>();
 

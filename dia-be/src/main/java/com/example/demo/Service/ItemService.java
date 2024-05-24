@@ -2,20 +2,26 @@ package com.example.demo.Service;
 
 
 import com.example.demo.Perzistent.*;
+import com.example.demo.Security_core.Perzistent2.TokenEntity;
+import com.example.demo.Security_core.Perzistent2.TokenRepository;
 import com.example.demo.Security_core.Service2.AuthenticationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 public class ItemService {
     @Autowired
     ItemRepository itemRepository;
     @Autowired
-    ToDoListRepository toDoListRepository;
+    ToDoListRepository todoListRepository;
+    @Autowired
+    TokenRepository tokenRepository;
     @Autowired
     private AuthenticationService authenticationService;
 
@@ -46,6 +52,26 @@ public class ItemService {
             return dto;
         }
         return null;
+    }
+
+    @PreAuthorize("hasRole('ROLE_USER')")
+    public List<ItemDTO> getItemsByToDoList(Long toDoListId, String token) {
+        Optional<TokenEntity> optionalToken = tokenRepository.findByToken(token);
+        if (!optionalToken.isPresent()) {
+            throw new IllegalArgumentException("Invalid token provided");
+        }
+        List<ItemDTO> itemDTOS = new ArrayList<>();
+
+        Set<ItemEntity> itemEntities = itemRepository.findByToDoListEntitiesId(toDoListId);
+
+        for (ItemEntity itemEntity : itemEntities) {
+            ItemDTO itemDTO = new ItemDTO();
+            itemDTO.setId(itemEntity.getId());
+            itemDTO.setName(itemEntity.getName());
+            itemDTO.setPopis(itemEntity.getPopis());
+            itemDTOS.add(itemDTO);
+        }
+        return itemDTOS;
     }
 
     @PreAuthorize("hasRole('ROLE_USER')")
