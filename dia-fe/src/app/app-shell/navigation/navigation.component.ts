@@ -41,10 +41,7 @@ export class NavigationComponent implements OnInit{
     routerLink: 'feature/profile-page',
     nazov: 'Profile',
   }]
-  protected tasks: NavigationModel[] = [{
-    routerLink: 'feature/list-page',
-    nazov: 'My TO DO list',
-  }]
+  protected tasks: NavigationModel[] = [];
 
   withoutLink(){
     this.loginService.isLogged()
@@ -59,8 +56,15 @@ export class NavigationComponent implements OnInit{
   getAllToDoLists(){
     this.listService.getAllLists().subscribe((lists: ListModel[]) =>{
       this.allLists = lists;
+      console.log(this.allLists);
+      this.updateNavigationTasks();
     })
-    console.log(this.allLists);
+  }
+  updateNavigationTasks(){
+    this.tasks = this.allLists.map(list => ({
+      routerLink: `feature/list-page/${list.id}`,
+      nazov: list.name
+    }));
   }
   ngOnInit(): void {
     this.getAllToDoLists();

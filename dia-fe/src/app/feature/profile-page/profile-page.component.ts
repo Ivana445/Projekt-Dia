@@ -25,6 +25,7 @@ export class ProfilePageComponent {
 
   constructor() {
     this.user = this.loginService.getUser()
+    console.log(this.user)
   }
 
   udpatePassword(){

@@ -14,6 +14,7 @@ import {ListModel} from "../../../models/list.model";
 import {ItemModel} from "../../../models/item.module";
 import {ShareComponent} from "../../share/share.component";
 import {error} from "@angular/compiler-cli/src/transformers/util";
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-list-page',
@@ -35,15 +36,26 @@ import {error} from "@angular/compiler-cli/src/transformers/util";
 export class ListPageComponent implements OnInit{
 
     private readonly listService = inject(ListService);
-    private readonly loginService = inject(LoginService);
     private readonly itemService = inject(ItemService);
 
-    constructor() {
-        //console.log('zakliknute itemy',this.deleteItemByTrash.checked)
-        //itemComponent.checked = false;
+    listId: number = 0;
+    list: ListModel = {name: '', deadline: undefined, items: []};
+
+    constructor(private route: ActivatedRoute) { }
+
+    ngOnInit(): void {
+        this.getItems();
+        this.route.paramMap.subscribe(params => {
+            this.listId = +params.get('id')!;
+            this.getListDetails(this.listId);
+        });
+        console.log(this.listId, 'id listu')
     }
-    ngOnInit() {
-        //this.addList()
+
+    getListDetails(id: number) {
+        this.listService.getList(id).subscribe((list: ListModel) => {
+            this.list = list;
+        });
     }
 
     //premenne lists
@@ -76,11 +88,10 @@ export class ListPageComponent implements OnInit{
     //GET DATA
     //////////////////////////
     getItems(){
-        //todo ako vybrat item z databazy?, pravdepodobne to pojde len pomocou id listu - prerobit backend
-
-        // this.itemService.getItem(/*neviem poslat item ktory chcem ziskat*/this.newList).subscribe( (itemFromDB: ItemModel[]) =>{
-        //     this.items = itemFromDB;
-        // })
+        this.itemService.getItemByList(this.newList).subscribe( (itemFromDB: ItemModel[]) =>{
+            this.items = itemFromDB;
+            console.log(this.items)
+        })
     }
     getShare(){
         //todo spracovat odpoved z backendu

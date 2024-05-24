@@ -1,8 +1,10 @@
-import {Component, inject} from '@angular/core';
+import {Component, inject, OnInit} from '@angular/core';
 import {NavigationService} from "../../services/client/navigation.service";
 import {FullCalendarModule} from "@fullcalendar/angular";
 import { CalendarOptions } from '@fullcalendar/core';
 import dayGridPlugin from '@fullcalendar/daygrid';
+import {ListService} from "../../services/list.service";
+import {ListModel} from "../../models/list.model";
 
 @Component({
   selector: 'app-test',
@@ -13,13 +15,35 @@ import dayGridPlugin from '@fullcalendar/daygrid';
   templateUrl: './test.component.html',
   styleUrl: './test.component.scss'
 })
-export class TestComponent {
+export class TestComponent implements OnInit{
+  private readonly listService = inject(ListService);
+  lists: ListModel[] = [];
   calendarOptions: CalendarOptions = {
     plugins: [dayGridPlugin],
-    initialView: 'dayGridMonth',
-    events: [
-      { title: 'Meeting', start: '2024-05-04' }
-    ]
+    initialView: 'dayGridMonth'
   };
+
+  ngOnInit(): void {
+    this.getAllToDoLists();
+  }
+
+  getAllToDoLists() {
+    this.listService.getAllLists().subscribe((lists: ListModel[]) => {
+      this.lists = lists;
+      console.log(this.lists);
+      this.updateCalendarEvents();
+    });
+  }
+
+  updateCalendarEvents() {
+    const events = this.lists.map(list => ({
+      title: list.name,
+      start: new Date(Number(list.deadline)) // Transformujte epochálny dátum na formát Date
+    }));
+
+    this.calendarOptions = {
+      events: events // Pridajte transformované udalosti zo zoznamu do events
+    };
+  }
 
 }

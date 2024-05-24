@@ -27,7 +27,7 @@ export const routes: Routes = [
     component: NewListPageComponent
   },
   {
-    path: 'feature/list-page',
+    path: 'feature/list-page/:id',
     component: ListPageComponent
   },
   {

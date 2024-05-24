@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, inject, OnInit} from '@angular/core';
 import {NameTimeComponent} from "../../name-time/name-time.component";
 import {ListModel} from "../../../models/list.model";
 import {CreateNewButtonComponent} from "../../create-new-button/create-new-button.component";
@@ -27,18 +27,18 @@ export class HomePageComponent implements OnInit{
   constructor() {
   }
 
-  private readonly listService = ListService
+  private readonly listService = inject(ListService);
 
-  lists: ListModel[] = [{
-    name:'My TO DO list'
-  }, {
-    name:'My TO DO list 2'
-  }, {
-    name:'My TO DO list 3'
-  }]
+  lists: ListModel[] = []
 
-  ngOnInit() {
-    //this.listService.getList()
+  ngOnInit(): void {
+    this.getAllToDoLists();
+  }
+  getAllToDoLists() {
+    this.listService.getAllLists().subscribe((lists: ListModel[]) => {
+      this.lists = lists;
+      console.log(this.lists);
+    });
   }
 
 

@@ -12,8 +12,8 @@ export class ListService{
     http = inject(HttpClient)
     apiUrl = 'http://localhost:8080/api'
 
-    getList(id: number): Observable<any> {
-        return this.http.get<any>(`${this.apiUrl}/todolist/${id}`);
+    getList(id: number): Observable<ListModel> {
+        return this.http.get<ListModel>(`${this.apiUrl}/todolist/${id}`);
     }
 
     postList(listModule: ListModel):Observable<any>{

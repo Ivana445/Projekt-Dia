@@ -1,7 +1,12 @@
 <p class="font-secondary">My day</p>
 <div class="content-bg bg-white">
     <app-create-new-button></app-create-new-button>
-    <app-list *ngFor=" let list of lists" [name]="list.name"></app-list>
+    <div *ngIf="lists.length === 0">
+        <p>There are no TO-DO lists for today.</p>
+    </div>
+    <div *ngIf="lists.length > 0">
+        <app-list *ngFor=" let list of lists" [name]="list.name"></app-list>
+    </div>
 
 </div>
 

@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
+import {Component, inject, OnInit} from '@angular/core';
 import {CreateNewButtonComponent} from "../../create-new-button/create-new-button.component";
 import {ListComponent} from "../../list/list.component";
 import {ListModel} from "../../../models/list.model";
-import {NgForOf} from "@angular/common";
+import {NgForOf, NgIf} from "@angular/common";
+import {ListService} from "../../../services/list.service";
 
 @Component({
   selector: 'app-my-day-page',
@@ -10,18 +11,32 @@ import {NgForOf} from "@angular/common";
   imports: [
     CreateNewButtonComponent,
     ListComponent,
-    NgForOf
+    NgForOf,
+    NgIf
   ],
   templateUrl: './my-day-page.component.html',
   styleUrl: './my-day-page.component.scss'
 })
-export class MyDayPageComponent {
+export class MyDayPageComponent implements OnInit{
 
-  lists: ListModel[] = [{
-    name:'My TO DO list'
-  }, {
-    name:'My TO DO list 2'
-  }, {
-    name:'My TO DO list 3'
-  }]
+  private readonly listService = inject(ListService);
+
+  lists: ListModel[] = []
+
+  ngOnInit(): void {
+    this.getAllToDoLists();
+  }
+  getAllToDoLists() {
+    this.listService.getAllLists().subscribe((lists: ListModel[]) => {
+      this.lists = lists.filter(list => list.deadline && this.isToday(new Date(list.deadline)));
+      console.log(this.lists);
+    });
+  }
+
+  isToday(date: Date): boolean {
+    const today = new Date();
+    return date.getDate() === today.getDate() &&
+        date.getMonth() === today.getMonth() &&
+        date.getFullYear() === today.getFullYear();
+  }
 }
