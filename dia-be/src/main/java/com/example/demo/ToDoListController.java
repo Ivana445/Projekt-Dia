@@ -64,18 +64,6 @@ public class ToDoListController {
             throw new IllegalArgumentException("neda sa");
         }
     }
-    @GetMapping("/api/todolist/change/{id}")
-    public ResponseEntity<List<UserDTO>> getUsersList(@PathVariable Long id, @RequestHeader(value = AUTHORIZATION_HEADER, required = true) Optional<String> authentication){
-        if (authentication.isPresent()) {
-            String token = authentication.get().substring("Bearer".length()).trim();
-            authenticationService.authenticate(token);
-            List<UserDTO> users = toDoListService.findAllUsers(id);
-            return ResponseEntity.ok(users);
-        }else {
-            throw new IllegalArgumentException("neda sa");
-        }
-
-    }
 
     @DeleteMapping("/api/todolist/{id}")
     public void deleteToDoList(@PathVariable Long id, @RequestHeader(value = AUTHORIZATION_HEADER, required = true) Optional<String> authentication) {

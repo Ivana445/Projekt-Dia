@@ -139,7 +139,6 @@ public class ToDoListService {
             System.out.println("todio " + toDoList);
             if (toDoList != null) {
                 toDoList.getUsers().add(user);
-                System.out.println("user v tofdhhfh" +toDoList.getUsers());
                 todoListRepository.save(toDoList);
             } else {
                 throw new IllegalArgumentException("neda sa");
@@ -148,32 +147,36 @@ public class ToDoListService {
             throw new IllegalArgumentException("Uživatel s tímto emailem nebyl nalezen.");
         }
     }
-    public List<UserDTO> findAllUsers(Long id){
+
+    public void deleteUserFromTodolist(Long id, String email) {
         ToDoListEntity toDoList = todoListRepository.findById(id).orElse(null);
-        Set<UserEntity> userEntities = toDoList.getUsers();
-        System.out.println("users " +userEntities);
-        List<UserDTO> userDTOs = new ArrayList<>();
-        for (UserEntity entity : userEntities){
-            UserDTO userDTO = new UserDTO();
-            userDTO.setUsername(entity.getUsername());
-            userDTO.setEmail(entity.getEmail());
-            userDTOs.add(userDTO);
+        System.out.println("todolistik" + toDoList);
+        if (toDoList == null) {
+            System.out.println("To-do list with ID " + id + " not found");
+            return;
         }
-        return userDTOs;
 
+        // Získanie používateľa
+        UserEntity userToRemove = new UserEntity();
+        for (UserEntity user : toDoList.getUsers()) {
+            if (user.getEmail().equals(email)) {
+                userToRemove = user;
+                System.out.println("user to remove" + userToRemove);
+                break;
+            }
+        }
+
+        if (userToRemove.getId() != null) {
+            System.out.println("User with email " + email + " not found in to-do list ID: " + id);
+            return;
+        }
+        System.out.println("toDoList" + toDoList.getUsers());
+        System.out.println("toDoList" + toDoList.getUsers().remove(userToRemove));
+        // Odstránenie používateľa zo zoznamu a uloženie zmien
+        userToRemove.getTodoLists().remove(toDoList);
+        toDoList.getUsers().remove(userToRemove);
+        todoListRepository.save(toDoList);
+
+        System.out.println("User with email " + email + " removed from to-do list ID: " + id);
     }
-    public void deleteUserFromTodolist(Long id, String email){
-        UserDTO userDTO = new UserDTO();
-        userDTO.setEmail(email);
-        ToDoListEntity toDoList = todoListRepository.findById(id).orElse(null);
-        System.out.println("todolist" + toDoList);
-        toDoList.getUsers().remove(userDTO);
-
-
-
-    }
-
-
-
-
 }
