@@ -5,7 +5,7 @@
 <div class="content">
     <div class="items">
         <div>
-            <app-item *ngFor="let item of items, let i = index" [itemname]="item.name" (click)="deleteItemFromArray(i)">
+            <app-item *ngFor="let item of items, let i = index" [item]="item" (click)="deleteItemFromArray(i)">
             </app-item>
         </div>
         <input type="text" [(ngModel)]="newItemName" (keyup.enter)="addItemToArray()">

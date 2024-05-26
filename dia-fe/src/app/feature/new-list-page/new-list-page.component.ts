@@ -133,14 +133,13 @@ export class NewListPageComponent implements OnInit{
               this.newListName = '';
               this.items = [];
               this.listOfShare = [];
-              this.router.navigate(['feature/list-page']);
+              this.router.navigate(['feature/home-page']);
               //spravit prepojenie na list, ktory sme vytvorili
             },
             error: (err) =>{
               console.error('chyba pri pridani listu', err);
             }
           }
-
       );
     }
   }

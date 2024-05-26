@@ -17,7 +17,6 @@ import {NgForOf} from "@angular/common";
 })
 export class ListComponent implements OnInit{
 
-  //private readonly userService = inject(UserService)
   private readonly loginService = inject(LoginService)
   private readonly listService = inject(ListService)
 
@@ -26,18 +25,8 @@ export class ListComponent implements OnInit{
   @Input()
   name=''
 
-  //toDoList: ListModel;
-
-  getList(){
-    if (this.user){
-      //this.listService.getList().subscribe(data=>{
-        //const toDoList = data;
-      //})
-    }
-  }
 
   ngOnInit():void{
-    this.getList()
   }
 
 }

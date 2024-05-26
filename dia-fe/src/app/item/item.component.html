@@ -1,4 +1,5 @@
-<div class="item bg-secondary">
-    {{itemname}}
-    <span class="pi pi-trash" (click)="deleteItem()"></span>
+<div class="item bg-secondary" [class.checked]="isChecked">
+    <input type="checkbox" (change)="onCheckboxChange()" [checked]="isChecked">
+    {{item?.name}}
+    <span class="pi pi-trash" (click)="deleteItem(item!)"></span>
 </div>

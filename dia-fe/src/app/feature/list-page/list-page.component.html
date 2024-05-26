@@ -5,9 +5,16 @@
 <div class="content">
     <div class="items">
         <div>
-            <app-item *ngFor="let item of items, let i = index" (click)="deleteItem()">
-                {{item.name}}
-            </app-item>
+            <div *ngIf="items?.length === 0">
+                <p>List is empty.</p>
+            </div>
+            <div *ngIf="items && items.length > 0">
+                <app-item *ngFor="let item of items, let i = index" [item]="item" [isChecked]="isItemChecked(item.id ? item.id : '')" (itemChecked)="onItemChecked($event)" (click)="deleteItem(item)">
+                </app-item>
+            </div>
+            <div>
+<!--                Počet začiarknutých položiek: {{ checkedItemCount }}-->
+            </div>
         </div>
         <input type="text" [(ngModel)]="newItemName" (keyup.enter)="addItem()">
     </div>

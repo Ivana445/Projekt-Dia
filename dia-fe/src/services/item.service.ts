@@ -13,11 +13,11 @@ export class ItemService{
     apiUrl = 'http://localhost:8080/api'
 
 
-    postItem(list: ListModel, item: ItemModel):Observable<any>{
-        return this.http.post<any>(`${this.apiUrl}/todolist/${list.id}/items`, item)
+    postItem(id: number, item: ItemModel):Observable<any>{
+        return this.http.post<any>(`${this.apiUrl}/todolist/${id}/items`, item)
     }
-    getItemByList(list: ListModel): Observable<ItemModel[]>{
-        return this.http.get<ItemModel[]>(`${this.apiUrl}/items/${list.id}`)
+    getItemByList(id: number): Observable<ItemModel[]>{
+        return this.http.get<ItemModel[]>(`${this.apiUrl}/items/${id}`)
     }
     getItem(item: ItemModel):Observable<any>{
         return this.http.get<any>(`${this.apiUrl}/item/${item.id}`)
