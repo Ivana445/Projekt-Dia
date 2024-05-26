@@ -81,6 +81,7 @@ public class UserService{
         token.setToken(randomString);
         token.setUser(user);
         token.setCreatedAt(LocalDateTime.now());
+        System.out.println(token);
         tokenRepository.save(token);
 
         return token.getToken();

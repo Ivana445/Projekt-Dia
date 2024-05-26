@@ -4,6 +4,7 @@ import com.example.demo.Perzistent.ItemEntity;
 import com.example.demo.Security_core.Service2.AuthenticationService;
 import com.example.demo.Service.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -44,9 +45,24 @@ public class ToDoListController {
             toDoListService.putToDoList(id, toDoListDTO, token);
     }
     @PutMapping("/api/todolist/change/{id}")
-    public void addUser(@PathVariable Long id, @RequestBody UserDTO userDTO, @RequestHeader(value = AUTHORIZATION_HEADER, required = true) Optional<String> authentication){
+    public void addUser(@PathVariable Long id, @RequestBody UserDTO userDTO, @RequestHeader(value = AUTHORIZATION_HEADER, required = true) Optional<String> authentication) {
+        if (authentication.isPresent()) {
             String token = authentication.get().substring("Bearer".length()).trim();
-            toDoListService.addUser(id,userDTO,token);
+            authenticationService.authenticate(token);
+            toDoListService.addUser(id, userDTO.getEmail());
+        } else {
+            throw new IllegalArgumentException("neda sa");
+        }
+    }
+    @DeleteMapping("/api/todolist/change/{id}")
+    public void deleteUserFromTodolist(@PathVariable Long id, @RequestBody UserDTO userDTO,  @RequestHeader(value = AUTHORIZATION_HEADER, required = true) Optional<String> authentication){
+        if (authentication.isPresent()) {
+            String token = authentication.get().substring("Bearer".length()).trim();
+            authenticationService.authenticate(token);
+            toDoListService.deleteUserFromTodolist(id, userDTO.getEmail());
+        }else {
+            throw new IllegalArgumentException("neda sa");
+        }
     }
 
     @DeleteMapping("/api/todolist/{id}")

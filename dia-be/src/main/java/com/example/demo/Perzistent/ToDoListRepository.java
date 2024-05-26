@@ -10,4 +10,5 @@ public interface ToDoListRepository extends CrudRepository<ToDoListEntity, Long>
     //Long je typ primarneho kluca s ktorym kniha pracuje
 
     Set<ToDoListEntity> findByUsersId(Long id);
+    //Set<ToDoListEntity> findByemail(String email);
 }
