@@ -1,4 +1,4 @@
-import {Component, inject, OnInit} from '@angular/core';
+import {AfterViewInit, Component, inject, OnInit, ViewChild} from '@angular/core';
 import {ButtonModule} from "primeng/button";
 import {CalendarModule} from "primeng/calendar";
 import {ItemComponent} from "../../item/item.component";
@@ -38,6 +38,8 @@ export class ListPageComponent implements OnInit{
     private readonly listService = inject(ListService);
     private readonly itemService = inject(ItemService);
     private readonly itemChecked = inject(ItemCheckedService);
+    // @ViewChild(ItemComponent) itemComponent: ItemComponent;
+
 
     //premenne lists
     deadline= new FormGroup({
@@ -86,9 +88,6 @@ export class ListPageComponent implements OnInit{
         });
     }
 
-
-
-
     //premenne items
 
     items: ItemModel[] | null = null;
@@ -135,7 +134,7 @@ export class ListPageComponent implements OnInit{
             this.listService.deleteList(this.listId).subscribe(() => {
                 console.log('vymazal som list');
                 this.refreshList();
-                this.router.navigate(['feature/home-page']);
+                this.router.navigate(['feature/home-page']).then(() => window.location.reload());
             })
         }
     }
@@ -157,7 +156,11 @@ export class ListPageComponent implements OnInit{
     }
     deleteItem(delItem: ItemModel){
         //todo vyskusat ako vymazavat
-        // this.itemComponent.deleteItem(delItem);
+        // if (this.itemComponent) {
+        //     this.itemComponent.deleteItem(delItem);
+        // } else {
+        //     console.error('itemComponent is not initialized yet.');
+        // }
         this.refreshItems();
         this.refreshList();
     }

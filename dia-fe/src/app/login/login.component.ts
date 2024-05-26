@@ -88,7 +88,7 @@ export class LoginComponent {
         if (this.login.controls.username.value && this.login.controls.password.value) {
                 this.loginService.newlogin(this.login.controls.username.value, this.login.controls.password.value).subscribe({
                     next: ()=> {
-                        this.router.navigate(['feature/home-page']).then()
+                        this.router.navigate(['feature/home-page']).then(() => window.location.reload())
                         console.log('prihlaseny')
                     },
                     error: (err) => {

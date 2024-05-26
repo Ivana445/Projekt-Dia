@@ -4,6 +4,7 @@ import {ButtonModule} from "primeng/button";
 import {NavigationService} from "../../services/client/navigation.service";
 import {LoginService} from "../../services/client/login.service";
 import {NgIf} from "@angular/common";
+import {NavigationComponent} from "./navigation/navigation.component";
 
 @Component({
   selector: 'app-app-shell',
@@ -22,6 +23,7 @@ export class AppShellComponent {
 
   private readonly loginService = inject(LoginService)
 
+
   @Input()
   navbarWidth = '100'
 
@@ -32,10 +34,12 @@ export class AppShellComponent {
 
 
   constructor() {
-    this.navigationService.navbarOpen$.subscribe(open => this.isNavbarOpen = true);
+    this.navigationService.navbarOpen$.subscribe(open => this.isNavbarOpen = false);
     this.show = this.auth().isLogged();
+    console.log(this.show)
     if (this.show){
       //todo ukaz menu ak je uzivatel prihlaseny
+      this.navigationService.navbarOpen$.subscribe(open => this.isNavbarOpen = true);
     }
   }
 

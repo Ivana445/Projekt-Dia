@@ -48,7 +48,9 @@ export class NavigationComponent implements OnInit{
   }
   logoutSubmit(): void {
     this.loginService.logout().subscribe({
-      next: () => this.router.navigate(['login'])
+      next: () => {
+        this.router.navigate(['login']).then(() => window.location.reload());
+      }
     });
   }
 
