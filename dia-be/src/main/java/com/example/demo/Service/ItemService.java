@@ -30,7 +30,6 @@ public class ItemService {
 
         ItemEntity entity = new ItemEntity();
         entity.setName(itemDTO.getName());
-        entity.setPopis(itemDTO.getPopis());
 
         ToDoListEntity toDoListEntity = new ToDoListEntity();
         toDoListEntity.setId(toDoListId);
@@ -48,7 +47,6 @@ public class ItemService {
         if (entity != null) {
             ItemDTO dto = new ItemDTO();
             dto.setName(entity.getName());
-            dto.setPopis(entity.getPopis());
             return dto;
         }
         return null;
@@ -68,7 +66,6 @@ public class ItemService {
             ItemDTO itemDTO = new ItemDTO();
             itemDTO.setId(itemEntity.getId());
             itemDTO.setName(itemEntity.getName());
-            itemDTO.setPopis(itemEntity.getPopis());
             itemDTOS.add(itemDTO);
         }
         return itemDTOS;
@@ -81,7 +78,6 @@ public class ItemService {
                 .orElseThrow(() -> new IllegalArgumentException("Item neexistuje"));
 
         itemEntity.setName(itemDTO.getName());
-        itemEntity.setPopis(itemDTO.getPopis());
 
         itemRepository.save(itemEntity);
     }

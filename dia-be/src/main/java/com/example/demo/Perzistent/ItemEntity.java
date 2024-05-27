@@ -17,7 +17,6 @@ public class ItemEntity {
     @GeneratedValue
     private Long id;
     private String name;
-    private String popis;
 
     @ManyToOne
     private ToDoListEntity toDoListEntities;
