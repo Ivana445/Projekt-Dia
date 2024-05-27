@@ -33,8 +33,6 @@ public class ToDoListEntity {
 //    @ManyToMany
 //    private Set<UserEntity> userEntities; //UserEntity
 
-    //@ManyToOne
-   // private CalendarEntity calendar; //CalendarEntity
 
     //@OneToMany(mappedBy="toDoListEntities")
     //private Set<ItemEntity> item; //ItemEntity

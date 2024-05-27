@@ -54,7 +54,6 @@ public class ToDoListService {
             entity.setDeadline(toDoListDTO.getDeadline());
             for (ItemDTO item: toDoListDTO.items ){
                 ItemEntity itementity = new ItemEntity();
-                itementity.setPopis(item.getPopis());
                 itementity.setName(item.getName());
                 itementity.setToDoListEntities(entity);
                 entity.getItems().add(itementity);

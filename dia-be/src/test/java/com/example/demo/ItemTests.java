@@ -67,7 +67,6 @@ public class ItemTests {
 
         ItemDTO dto = new ItemDTO();
         dto.setName("Moj task");
-        dto.setPopis("Moj popis");
 
         mockMvc.perform(
                         post("/api/todolist/1/items")
@@ -90,7 +89,7 @@ public class ItemTests {
     @Test
     public void testGetItemById() throws Exception{
         when(itemService.getItemById(any(), "token")).thenReturn(
-                new ItemDTO(1L,"task", "popis")
+                new ItemDTO(1L,"task")
         );
 
         mockMvc.perform(
@@ -120,7 +119,6 @@ public class ItemTests {
 
         ItemDTO itemDTO = new ItemDTO();
         itemDTO.setName("moj task");
-        itemDTO.setPopis("popis tasku");
 
         mockMvc.perform(put("/api/item/{id}",1)
                 .contentType(MediaType.APPLICATION_JSON)
