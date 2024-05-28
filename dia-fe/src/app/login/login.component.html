@@ -29,13 +29,13 @@
                     <li>Minimum 8 characters</li>
                 </ul>
                 <button *ngIf="!register" type="button" class="bg-secondary font-col-white btn" (click)="loginSubmit()">Log in</button>
-                <button *ngIf="register" type="button" class="bg-secondary font-col-white btn" (click)="registerSubmit()">Sing up</button>
+                <button *ngIf="register" type="button" class="bg-secondary font-col-white btn" (click)="registerSubmit()">Sign up</button>
             </div>
         </form>
     </div>
     <div class="right bg-secondary">
         <p style="font-weight: bold; font-size: 30px;">Welcome to To Do Lists DIA!</p>
-        <button *ngIf="!register" type="button" class="bg-primary font-col-black btn" (click)="registerPageSubmit()">Sing up</button>
+        <button *ngIf="!register" type="button" class="bg-primary font-col-black btn" (click)="registerPageSubmit()">Sign up</button>
         <button *ngIf="register" type="button" class="bg-primary font-col-black btn" (click)="loginBackSubmit()">Log in</button>
     </div>
 </div>

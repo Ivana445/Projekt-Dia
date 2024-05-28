@@ -66,10 +66,10 @@ export class NewListPageComponent implements OnInit{
   //items: ItemModel[] = []
   newItemName: string = '';
   items: ItemModel[] = [
-    { name: 'Accounting', popis: 'popis' },
-    { name: 'Marketing', popis: 'druhy popis' },
-    { name: 'Production', popis: 'treti popis' },
-    { name: 'Research', popis: 'stvrty popis' }
+    // { name: 'Accounting', popis: 'popis' },
+    // { name: 'Marketing', popis: 'druhy popis' },
+    // { name: 'Production', popis: 'treti popis' },
+    // { name: 'Research', popis: 'stvrty popis' }
   ];
 
   deleteItemByTrash = new ItemComponent();

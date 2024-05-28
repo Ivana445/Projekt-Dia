@@ -9,7 +9,7 @@
   justify-content: center;
   align-content: flex-start;
   float: left;
-  margin-right: 2%;
+  margin-right: 8%;
 }
 .tasks p, .progess p, .calendar p{
   width: 100%;
@@ -37,7 +37,7 @@ app-list{
   //width: 100%;
   min-width: min-content;
   max-width: 20rem;
-  height: 13rem;
+  height: 12rem;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;

@@ -7,7 +7,9 @@ navbar{
 .content{
   border-radius: 8% / 10%;
   width: 100%;
-  min-height: 48rem;
+  min-height: 46.5rem;
+  max-height: 47rem;
+  overflow: auto;
   margin: 2rem;
-  padding: 2rem;
+  padding: 2rem 3rem;
 }

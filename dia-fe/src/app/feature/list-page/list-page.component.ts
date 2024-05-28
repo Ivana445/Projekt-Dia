@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, inject, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, inject, Input, OnInit, ViewChild} from '@angular/core';
 import {ButtonModule} from "primeng/button";
 import {CalendarModule} from "primeng/calendar";
 import {ItemComponent} from "../../item/item.component";
@@ -38,8 +38,8 @@ export class ListPageComponent implements OnInit{
     private readonly listService = inject(ListService);
     private readonly itemService = inject(ItemService);
     private readonly itemChecked = inject(ItemCheckedService);
-    // @ViewChild(ItemComponent) itemComponent: ItemComponent;
 
+    @ViewChild('itemComponent', { static: false }) itemComponent!: ItemComponent;
 
     //premenne lists
     deadline= new FormGroup({
@@ -146,21 +146,19 @@ export class ListPageComponent implements OnInit{
     }
     addItem(){
         //todo over nullovost
-        if (this.item != null){
-            this.item.name = this.newItemName;
-            this.itemService.postItem(this.listId, this.item).subscribe(() =>{
+            this.item!.name = this.newItemName;
+            this.itemService.postItem(this.listId, this.item!).subscribe(() =>{
                 console.log('pridal som item');
                 this.refreshItems();
             })
-        }
     }
     deleteItem(delItem: ItemModel){
         //todo vyskusat ako vymazavat
-        // if (this.itemComponent) {
-        //     this.itemComponent.deleteItem(delItem);
-        // } else {
-        //     console.error('itemComponent is not initialized yet.');
-        // }
+        if (this.itemComponent) {
+            this.itemComponent.deleteItem(delItem);
+        } else {
+            console.error('itemComponent is not initialized yet.');
+        }
         this.refreshItems();
         this.refreshList();
     }

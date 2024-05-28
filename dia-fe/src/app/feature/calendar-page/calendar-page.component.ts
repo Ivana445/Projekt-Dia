@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {CalendarComponent} from "../../calendar/calendar.component";
 import {ListComponent} from "../../list/list.component";
 import {CreateNewButtonComponent} from "../../create-new-button/create-new-button.component";
@@ -16,6 +16,9 @@ import {TestComponent} from "../../test/test.component";
   templateUrl: './calendar-page.component.html',
   styleUrl: './calendar-page.component.scss'
 })
-export class CalendarPageComponent {
+export class CalendarPageComponent implements OnInit{
 
+  ngOnInit() {
+    //window.location.reload();
+  }
 }

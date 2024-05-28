@@ -13,5 +13,5 @@ import {NgIf} from "@angular/common";
     styleUrl: './app.component.scss'
 })
 export class AppComponent {
-    title = 'dia-fe';
+    title = 'To Do lists DIA';
 }
