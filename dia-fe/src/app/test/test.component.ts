@@ -1,5 +1,4 @@
 import {Component, inject, OnInit} from '@angular/core';
-import {NavigationService} from "../../services/client/navigation.service";
 import {FullCalendarModule} from "@fullcalendar/angular";
 import { CalendarOptions } from '@fullcalendar/core';
 import dayGridPlugin from '@fullcalendar/daygrid';

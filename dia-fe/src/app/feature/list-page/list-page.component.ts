@@ -92,7 +92,7 @@ export class ListPageComponent implements OnInit{
 
     items: ItemModel[] | null = null;
     newItemName = "";
-    item: ItemModel | null = null;
+    item: ItemModel = {name: ""};
 
     // deleteItemByTrash = new ItemComponent();
 
@@ -144,13 +144,26 @@ export class ListPageComponent implements OnInit{
     refreshItems(){
         this.getItems(this.listId);
     }
-    addItem(){
-        //todo over nullovost
-            this.item!.name = this.newItemName;
-            this.itemService.postItem(this.listId, this.item!).subscribe(() =>{
-                console.log('pridal som item');
-                this.refreshItems();
-            })
+    addItem() {
+        if (!this.newItemName) {
+            console.error('newItemName is null or undefined.'); // Kontrolný výstup do konzoly
+            return; // Ak newItemName je null alebo undefined, skončite metódu
+        }
+
+        if (!this.item) {
+            console.error('item is null or undefined.'); // Kontrolný výstup do konzoly
+            return; // Ak item je null alebo undefined, skončite metódu
+        }
+
+        console.log(this.newItemName); // Kontrolný výstup do konzoly
+        console.log(this.item.name); // Kontrolný výstup do konzoly
+
+        this.item.name = this.newItemName; // Priradenie hodnoty newItemName do item.name
+        this.itemService.postItem(this.listId, this.item).subscribe(() => {
+            console.log('Pridal som položku'); // Kontrolný výstup do konzoly
+            this.newItemName = "";
+            this.refreshItems(); // Zavolanie metódy na obnovenie položiek
+        });
     }
     deleteItem(delItem: ItemModel){
         //todo vyskusat ako vymazavat
