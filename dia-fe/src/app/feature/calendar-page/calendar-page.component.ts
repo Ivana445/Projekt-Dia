@@ -19,6 +19,6 @@ import {TestComponent} from "../../test/test.component";
 export class CalendarPageComponent implements OnInit{
 
   ngOnInit() {
-    //window.location.reload();
+    // window.location.reload();
   }
 }

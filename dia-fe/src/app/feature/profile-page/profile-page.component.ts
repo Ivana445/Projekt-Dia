@@ -20,7 +20,7 @@ export class ProfilePageComponent {
   private readonly loginService = inject(LoginService)
   private readonly userService = inject(UserService)
 
-  user: UserModel | null;
+  user: UserModel | null = {username: "", password: "", email: ""};
   password: string = '';
 
   constructor() {

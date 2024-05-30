@@ -29,4 +29,7 @@ export class UserService{
         return this.http.get<any>(`${this.apiUrl}/registration${user.id}`)
     }
 
+    getListOfShare(listId: number){
+        return this.http.get<UserModel[]>(`${this.apiUrl}/shared/${listId}`)
+    }
 }

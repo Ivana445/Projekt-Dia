@@ -43,9 +43,9 @@ export class NavigationComponent implements OnInit{
   }]
   protected tasks: NavigationModel[] = [];
 
-  withoutLink(){
-    this.loginService.isLogged()
-  }
+  // withoutLink(){
+  //   this.loginService.isLogged()
+  // }
   logoutSubmit(): void {
     this.loginService.logout().subscribe({
       next: () => {

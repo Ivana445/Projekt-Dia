@@ -76,7 +76,7 @@ export class NewListPageComponent implements OnInit{
 
   //premenne share
   share:string = '';
-  listOfShare = ['user@gmail.com'];
+  listOfShare: string[] = [];
 
 
   //CREATE NEW TO DO LIST

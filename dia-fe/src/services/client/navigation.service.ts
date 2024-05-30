@@ -6,7 +6,7 @@ import {BehaviorSubject, Observable} from "rxjs";
 })
 export class NavigationService {
 
-  private navbarOpenSubj = new BehaviorSubject<boolean>(true);
+  private navbarOpenSubj = new BehaviorSubject<boolean>(false);
   navbarOpen$: Observable<boolean> = this.navbarOpenSubj.asObservable();
 
   constructor() {

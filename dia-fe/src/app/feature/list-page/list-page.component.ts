@@ -14,6 +14,9 @@ import {ItemModel} from "../../../models/item.module";
 import {ShareComponent} from "../../share/share.component";
 import {ActivatedRoute, Router} from "@angular/router";
 import {ItemCheckedService} from "../../../services/itemChecked.service";
+import {UserService} from "../../../services/client/user.service";
+import {UserModel} from "../../../models/user.model";
+import {error} from "@angular/compiler-cli/src/transformers/util";
 
 @Component({
   selector: 'app-list-page',
@@ -38,6 +41,7 @@ export class ListPageComponent implements OnInit{
     private readonly listService = inject(ListService);
     private readonly itemService = inject(ItemService);
     private readonly itemChecked = inject(ItemCheckedService);
+    private readonly userService = inject(UserService);
 
     @ViewChild('itemComponent', { static: false }) itemComponent!: ItemComponent;
 
@@ -65,6 +69,7 @@ export class ListPageComponent implements OnInit{
                 this.listId = parseInt(id, 10);
                 this.getItems(this.listId);
                 this.getListDetails(this.listId);
+                this.getShare(this.listId);
             }
         });
         //console.log(this.listId, 'id listu')
@@ -108,8 +113,12 @@ export class ListPageComponent implements OnInit{
             this.items = itemFromDB;
         })
     }
-    getShare(){
+    getShare(listId: number){
         //todo spracovat odpoved z backendu
+        this.userService.getListOfShare(listId).subscribe((userList: UserModel[]) =>{
+            this.listOfShare = userList.map(user => user.email);
+            console.log(this.listOfShare);
+        })
     }
 
     //UPDATE TO DO LIST
@@ -166,7 +175,6 @@ export class ListPageComponent implements OnInit{
         });
     }
     deleteItem(delItem: ItemModel){
-        //todo vyskusat ako vymazavat
         if (this.itemComponent) {
             this.itemComponent.deleteItem(delItem);
         } else {
